@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -916,6 +915,494 @@
     .gg-heading { font-size: 12px; }
   }
 
+  /* ===== Shared scroll reveal ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .section-head {
+    max-width: 920px;
+    margin: 140px auto 0;
+    padding: 0 40px;
+  }
+  .section-head h2 {
+    font-size: 24px;
+    font-weight: 800;
+  }
+  .section-head p {
+    margin-top: 14px;
+    font-size: 13px;
+    color: #999999;
+    line-height: 1.8;
+  }
+  .section-head.center {
+    text-align: center;
+  }
+
+  /* ===== Reviews ===== */
+  .reviews-section { margin-top: 140px; }
+
+  .bubble-marquee {
+    margin-top: 48px;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+  .bubble-track {
+    display: flex;
+    gap: 16px;
+    width: max-content;
+    animation: bubbleScroll 34s linear infinite;
+  }
+  .bubble-marquee:hover .bubble-track { animation-play-state: paused; }
+  .bubble-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 22px;
+    border-radius: 999px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  .bubble-item.dark { background: #1c1c1c; color: #dddddd; border: 1px solid #2a2a2a; }
+  .bubble-item.red { background: #c73a2e; color: #ffffff; }
+  .bubble-avatar { width: 26px; height: 26px; border-radius: 50%; background: #3a3a3a; flex-shrink: 0; }
+  .bubble-item.red .bubble-avatar { background: rgba(255,255,255,.35); }
+  @keyframes bubbleScroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .review-cards {
+    max-width: 920px;
+    margin: 56px auto 0;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .review-card {
+    background: #161616;
+    border: 1px solid #232323;
+    border-radius: 12px;
+    padding: 26px;
+  }
+  .review-card p {
+    font-size: 13px;
+    color: #cccccc;
+    line-height: 1.75;
+    min-height: 90px;
+  }
+  .review-author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid #262626;
+  }
+  .review-avatar { width: 32px; height: 32px; border-radius: 50%; background: #3a3a3a; flex-shrink: 0; }
+  .review-author strong { display: block; font-size: 12px; font-weight: 700; color: #eeeeee; }
+  .review-author span { font-size: 11px; color: #888888; }
+
+  /* ===== Career support ===== */
+  .career-section { margin-top: 140px; }
+  .career-cards {
+    max-width: 920px;
+    margin: 48px auto 0;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .career-card {
+    position: relative;
+    height: 260px;
+    border-radius: 12px;
+    background: #161616;
+    border: 1px solid #232323;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform .4s ease, border-color .5s ease;
+  }
+  .career-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, #e04a3f, #7a1e17);
+    opacity: 0;
+    transition: opacity .5s ease;
+  }
+  .career-card:hover { transform: translateY(-4px); border-color: transparent; }
+  .career-card:hover::before { opacity: 1; }
+  .career-card h4, .career-card span { position: relative; z-index: 1; }
+  .career-card h4 { font-size: 17px; font-weight: 800; margin-bottom: 6px; color: #ffffff; }
+  .career-card span { font-size: 12px; color: #999999; transition: color .4s ease; }
+  .career-card:hover span { color: rgba(255,255,255,.85); }
+
+  .career-banner {
+    max-width: 920px;
+    margin: 20px auto 0;
+    padding: 0 40px;
+  }
+  .career-banner div {
+    background: #161616;
+    border: 1px solid #232323;
+    border-radius: 10px;
+    text-align: center;
+    padding: 18px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #cccccc;
+  }
+
+  /* ===== Benefits ===== */
+  .benefits-section { margin-top: 140px; }
+  .benefits-body {
+    max-width: 920px;
+    margin: 40px auto 0;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .benefit-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #cccccc;
+    cursor: pointer;
+    margin-bottom: 8px;
+  }
+  .benefit-toggle svg { transition: transform .3s ease; }
+  .benefit-toggle.open svg { transform: rotate(180deg); }
+
+  .benefit-list {
+    margin-top: 16px;
+    max-height: 600px;
+    overflow: hidden;
+    transition: max-height .5s ease;
+  }
+  .benefit-list.collapsed { max-height: 0; }
+
+  .benefit-item {
+    padding: 14px 10px;
+    border-bottom: 1px solid #1f1f1f;
+    border-radius: 8px;
+    transition: background .35s ease, padding-left .35s ease;
+  }
+  .benefit-item h5 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #e5e5e5;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color .3s ease;
+  }
+  .benefit-item .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #555555;
+    flex-shrink: 0;
+    transition: background .3s ease, box-shadow .3s ease;
+  }
+  .benefit-item p {
+    font-size: 12px;
+    color: #888888;
+    margin-top: 6px;
+    margin-left: 14px;
+    line-height: 1.6;
+  }
+  .benefit-item.active {
+    background: rgba(224,57,47,.08);
+    padding-left: 16px;
+  }
+  .benefit-item.active h5 { color: #e0553f; }
+  .benefit-item.active .dot { background: #e0392f; box-shadow: 0 0 0 4px rgba(224,57,47,.18); }
+
+  .keyword-panel {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 76px;
+    gap: 12px;
+    background-image: radial-gradient(#242424 1px, transparent 1px);
+    background-size: 18px 18px;
+    padding: 22px;
+    border-radius: 14px;
+    border: 1px solid #1f1f1f;
+  }
+  .keyword-tag {
+    background: #1c1c1c;
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #cccccc;
+    cursor: pointer;
+    padding: 8px;
+    transition: background .35s ease, border-color .35s ease, color .35s ease, transform .35s ease, box-shadow .35s ease;
+  }
+  .keyword-tag:hover { border-color: #e0392f; color: #ffffff; }
+  .keyword-tag.active {
+    background: #e0392f;
+    color: #ffffff;
+    border-color: #e0392f;
+    transform: scale(1.03);
+    box-shadow: 0 10px 26px rgba(224,57,47,.35);
+  }
+  .keyword-tag.span2 { grid-row: span 2; font-size: 14px; }
+
+  /* ===== Instructor ===== */
+  .instructor-section { margin-top: 140px; }
+  .instructor-card {
+    max-width: 920px;
+    margin: 32px auto 0;
+    padding: 32px 40px 0;
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    border-top: 1px solid #262626;
+  }
+  .instructor-avatar { width: 88px; height: 88px; border-radius: 12px; background: #2a2a2a; flex-shrink: 0; }
+  .instructor-info { flex: 1; min-width: 0; }
+  .instructor-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; flex-wrap: wrap; }
+  .instructor-info .name { font-size: 16px; font-weight: 800; color: #ffffff; }
+  .instructor-info .name .role-tag { font-size: 11px; color: #e0553f; font-weight: 700; margin-left: 6px; }
+  .instructor-info .title { font-size: 12px; color: #888888; margin-top: 4px; }
+  .instructor-info .desc { font-size: 13px; color: #cccccc; margin-top: 14px; line-height: 1.7; }
+  .instructor-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #cccccc;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .instructor-toggle svg { transition: transform .3s ease; }
+  .instructor-toggle.open svg { transform: rotate(180deg); }
+  .instructor-detail {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    margin-top: 0;
+    transition: max-height .5s ease, opacity .4s ease, margin-top .4s ease;
+  }
+  .instructor-detail.open { max-height: 300px; opacity: 1; margin-top: 20px; }
+  .instructor-detail ul { list-style: none; font-size: 12px; color: #999999; line-height: 2; }
+  .instructor-detail li::before { content: "— "; color: #555555; }
+
+  /* ===== Learning space ===== */
+  .space-section { margin-top: 140px; }
+  .space-block { max-width: 920px; margin: 40px auto 0; padding: 0 40px; }
+  .space-block + .space-block { margin-top: 48px; }
+  .space-block h4 { font-size: 14px; font-weight: 800; color: #eeeeee; }
+  .space-block > p { font-size: 12px; color: #888888; margin-top: 6px; }
+
+  .space-gallery {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .space-photo {
+    aspect-ratio: 4/3;
+    border-radius: 10px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #2a2a2a, #161616);
+    position: relative;
+  }
+  .space-photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transition: transform .6s ease, filter .6s ease;
+  }
+  .space-photo:hover::after { transform: scale(1.08); filter: brightness(1.15); }
+
+  .space-video {
+    margin-top: 16px;
+    aspect-ratio: 16/6;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #2a2a2a, #161616);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .space-play {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(224,57,47,.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: playPulse 2.4s ease-in-out infinite;
+  }
+  @keyframes playPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(224,57,47,.35); }
+    50% { box-shadow: 0 0 0 14px rgba(224,57,47,0); }
+  }
+  .space-video:hover .space-play { transform: scale(1.1); }
+
+  /* ===== Application tracks ===== */
+  .apply-section { margin-top: 140px; }
+  .track-tabs {
+    max-width: 920px;
+    margin: 40px auto 0;
+    padding: 0 40px;
+    display: flex;
+    gap: 16px;
+    height: 340px;
+  }
+  .track-tab {
+    flex: 1;
+    background: #161616;
+    border: 1px solid #232323;
+    border-radius: 16px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: flex-grow .6s cubic-bezier(.65,0,.35,1), background .6s ease, border-color .6s ease;
+  }
+  .track-tab.active {
+    flex-grow: 2.6;
+    background: linear-gradient(160deg, #c73a2e, #6e1c15);
+    border-color: transparent;
+  }
+  .track-tab .eyebrow { font-size: 11px; color: #999999; transition: color .4s ease; }
+  .track-tab.active .eyebrow { color: rgba(255,255,255,.75); }
+  .track-tab h3 { font-size: 22px; font-weight: 800; margin-top: 10px; color: #eeeeee; white-space: pre-line; transition: color .4s ease; line-height: 1.3; }
+  .track-tab.active h3 { color: #ffffff; }
+  .track-note {
+    font-size: 12px;
+    color: #ffd9d5;
+    margin-top: 16px;
+    max-width: 320px;
+    line-height: 1.7;
+    opacity: 0;
+    transition: opacity .4s ease .15s;
+  }
+  .track-tab.active .track-note { opacity: 1; }
+  .track-steps {
+    margin-top: 22px;
+    opacity: 0;
+    transition: opacity .4s ease .2s;
+    font-size: 12px;
+    color: rgba(255,255,255,.85);
+    line-height: 2.1;
+  }
+  .track-tab.active .track-steps { opacity: 1; }
+  .track-steps b { display: inline-block; width: 22px; color: #ffb3ab; }
+
+  .apply-cta {
+    max-width: 920px;
+    margin: 28px auto 0;
+    padding: 0 40px;
+    text-align: right;
+  }
+  .apply-cta a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+    text-decoration: none;
+  }
+  .apply-cta a svg { transition: transform .3s ease; }
+  .apply-cta a:hover svg { transform: translateX(6px); }
+
+  /* ===== FAQ ===== */
+  .faq-section { margin-top: 140px; padding-bottom: 40px; }
+  .faq-tabs {
+    max-width: 920px;
+    margin: 24px auto 0;
+    padding: 0 40px;
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+  }
+  .faq-tab {
+    font-size: 13px;
+    color: #888888;
+    cursor: pointer;
+    padding-bottom: 6px;
+    border-bottom: 2px solid transparent;
+    transition: color .3s ease, border-color .3s ease;
+  }
+  .faq-tab.active { color: #ffffff; border-color: #e0392f; }
+
+  .faq-list {
+    max-width: 920px;
+    margin: 32px auto 0;
+    padding: 0 40px;
+    border-top: 1px solid #262626;
+  }
+  .faq-item { border-bottom: 1px solid #262626; }
+  .faq-item.hidden { display: none; }
+  .faq-question {
+    padding: 20px 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    color: #e5e5e5;
+  }
+  .faq-question svg { flex-shrink: 0; transition: transform .35s ease; }
+  .faq-item.open .faq-question svg { transform: rotate(45deg); }
+  .faq-item.open .faq-question { color: #ffffff; }
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .4s ease;
+  }
+  .faq-answer p {
+    font-size: 13px;
+    color: #999999;
+    line-height: 1.8;
+    padding: 0 4px 20px;
+  }
+  .faq-item.open .faq-answer { max-height: 200px; }
+
+  @media (max-width: 700px) {
+    .review-cards { grid-template-columns: 1fr; }
+    .career-cards { grid-template-columns: 1fr; }
+    .benefits-body { grid-template-columns: 1fr; gap: 32px; }
+    .instructor-card { flex-direction: column; }
+    .instructor-top { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .space-gallery { grid-template-columns: 1fr 1fr; }
+    .track-tabs { flex-direction: column; height: auto; }
+    .track-tab { min-height: 120px; }
+    .track-tab.active { min-height: 320px; flex-grow: 1; }
+    .track-tab:not(.active) .track-note,
+    .track-tab:not(.active) .track-steps { display: none; }
+    .faq-tabs { flex-wrap: wrap; gap: 16px; }
+  }
+
   .bottom-divider {
     max-width: 920px;
     margin: 0 auto 80px;
@@ -1308,6 +1795,283 @@
     </div>
   </section>
 
+  <!-- ===== 수강생 후기 ===== -->
+  <section class="reviews-section">
+    <div class="section-head center reveal">
+      <h2>수강생 후기</h2>
+      <p>실제로 7개월을 지나온 사람들의 이야기입니다.<br>포트폴리오, 취업, 그리고 성장까지 — 수강생들의 생생한 후기를 확인해보세요.</p>
+    </div>
+
+    <div class="bubble-marquee">
+      <div class="bubble-track">
+        <div class="bubble-item dark"><span class="bubble-avatar"></span>비전공자였는데 7개월 만에 포트폴리오 3개를 완성했어요</div>
+        <div class="bubble-item red"><span class="bubble-avatar"></span>현직 멘토님 피드백이 정말 실무적이었습니다</div>
+        <div class="bubble-item dark"><span class="bubble-avatar"></span>혼자였다면 절대 못 끝냈을 프로젝트를 완주했어요</div>
+        <div class="bubble-item red"><span class="bubble-avatar"></span>커리어 지원 덕분에 서류 통과율이 확 올랐습니다</div>
+        <div class="bubble-item dark"><span class="bubble-avatar"></span>매주 스터디 덕분에 끝까지 완주할 수 있었어요</div>
+        <div class="bubble-item red"><span class="bubble-avatar"></span>AI 툴 활용법을 배우고 작업 속도가 2배 빨라졌어요</div>
+        <!-- duplicate for seamless loop -->
+        <div class="bubble-item dark" aria-hidden="true"><span class="bubble-avatar"></span>비전공자였는데 7개월 만에 포트폴리오 3개를 완성했어요</div>
+        <div class="bubble-item red" aria-hidden="true"><span class="bubble-avatar"></span>현직 멘토님 피드백이 정말 실무적이었습니다</div>
+        <div class="bubble-item dark" aria-hidden="true"><span class="bubble-avatar"></span>혼자였다면 절대 못 끝냈을 프로젝트를 완주했어요</div>
+        <div class="bubble-item red" aria-hidden="true"><span class="bubble-avatar"></span>커리어 지원 덕분에 서류 통과율이 확 올랐습니다</div>
+        <div class="bubble-item dark" aria-hidden="true"><span class="bubble-avatar"></span>매주 스터디 덕분에 끝까지 완주할 수 있었어요</div>
+        <div class="bubble-item red" aria-hidden="true"><span class="bubble-avatar"></span>AI 툴 활용법을 배우고 작업 속도가 2배 빨라졌어요</div>
+      </div>
+    </div>
+
+    <div class="review-cards">
+      <div class="review-card reveal">
+        <p>처음엔 디자인 툴도 서툴렀는데, 7개월 동안 실무 프로젝트를 3개나 진행하면서 포트폴리오가 완전히 달라졌어요. 협업 경험까지 챙길 수 있어서 만족스러웠습니다.</p>
+        <div class="review-author">
+          <span class="review-avatar"></span>
+          <div><strong>프로덕트 디자인 1기</strong><span>수강생 김O진</span></div>
+        </div>
+      </div>
+      <div class="review-card reveal" style="transition-delay:.1s;">
+        <p>커리큘럼이 정말 체계적이었어요. 기초부터 실무까지 순서대로 밟아가다 보니 어느새 포트폴리오가 완성되어 있더라고요. 멘토링도 큰 도움이 됐습니다.</p>
+        <div class="review-author">
+          <span class="review-avatar"></span>
+          <div><strong>프로덕트 디자인 1기</strong><span>수강생 이O민</span></div>
+        </div>
+      </div>
+      <div class="review-card reveal" style="transition-delay:.2s;">
+        <p>취업 준비하면서 가장 막막했던 포트폴리오 구성을, 현직자 멘토링을 통해 명확한 방향으로 잡을 수 있었어요. 결국 원하던 회사에 합격했습니다.</p>
+        <div class="review-author">
+          <span class="review-avatar"></span>
+          <div><strong>프로덕트 디자인 1기</strong><span>수강생 박O현</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 커리어 지원 ===== -->
+  <section class="career-section">
+    <div class="section-head center reveal">
+      <h2>커리어 지원</h2>
+      <p>교육은 끝이 아니라 시작입니다.<br>배움이 실전과 커리어로 이어지도록, KT CLOUD TECH UP이 끝까지 함께합니다.</p>
+    </div>
+
+    <div class="career-cards">
+      <div class="career-card reveal">
+        <h4>TECH UP<br>연합 해커톤</h4>
+        <span>다른 트랙 수강생들과 팀을 이뤄 실전 프로젝트를 경험하세요.</span>
+      </div>
+      <div class="career-card reveal" style="transition-delay:.1s;">
+        <h4>kt cloud<br>현직자 특강, 멘토링</h4>
+        <span>현업 실무자에게 직접 배우고 피드백 받는 시간.</span>
+      </div>
+      <div class="career-card reveal" style="transition-delay:.2s;">
+        <h4>이력서,<br>포트폴리오 컨설팅</h4>
+        <span>서류 완성도를 높이는 1:1 첨삭과 컨설팅.</span>
+      </div>
+    </div>
+
+    <div class="career-banner reveal">
+      <div>우수 수료생 채용 지원시 우대</div>
+    </div>
+  </section>
+
+  <!-- ===== 학습 지원 및 혜택 ===== -->
+  <section class="benefits-section">
+    <div class="section-head reveal">
+      <h2>학습을 돕는 지원부터 성장을 이끄는 혜택까지</h2>
+      <p>배움에만 집중할 수 있도록, KT CLOUD TECH UP이 학습 환경부터 커리어까지 폭넓게 지원합니다.</p>
+    </div>
+
+    <div class="benefits-body reveal">
+      <div>
+        <div class="benefit-toggle open">
+          혜택 상세보기
+          <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="benefit-list">
+          <div class="benefit-item" data-key="infra">
+            <h5><span class="dot"></span>프로젝트 맞춤형 실습 인프라 지원</h5>
+            <p>클라우드 실습 및 과제 수행에 필요한 최적의 구동 환경과 리소스를 제공합니다.</p>
+          </div>
+          <div class="benefit-item" data-key="ai">
+            <h5><span class="dot"></span>생성형 AI 도구 지원</h5>
+            <p>AI와 함께라면 학습이 더 빠르고 효율적입니다.</p>
+          </div>
+          <div class="benefit-item active" data-key="laptop">
+            <h5><span class="dot"></span>고성능 실무용 노트북 대여</h5>
+            <p>프로젝트 수행에 최적화된 고사양 노트북 대여 서비스를 제공합니다.</p>
+          </div>
+          <div class="benefit-item" data-key="infleran">
+            <h5><span class="dot"></span>인프런 강의 지원</h5>
+            <p>빠른 성장을 위해 1개월간 인프런 전 강의를 무제한으로 지원합니다.</p>
+          </div>
+          <div class="benefit-item" data-key="network">
+            <h5><span class="dot"></span>네트워킹 파티</h5>
+            <p>혼자가 아닌 연결의 힘으로 성장의 속도를 높이세요.</p>
+          </div>
+          <div class="benefit-item" data-key="grant">
+            <h5><span class="dot"></span>훈련 장려금 제공</h5>
+            <p>성실히 참여하시면 월 최대 300,000원의 훈련장려금이 지급됩니다.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="keyword-panel">
+        <div class="keyword-tag" data-target="infleran">인프런 강의</div>
+        <div class="keyword-tag" data-target="grant">훈련 지원금</div>
+        <div class="keyword-tag active span2" data-target="laptop">노트북 대여</div>
+        <div class="keyword-tag" data-target="network">네트워킹 파티</div>
+        <div class="keyword-tag" data-target="ai">생성형 AI 지원</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 강사 소개 ===== -->
+  <section class="instructor-section">
+    <div class="section-head reveal" style="margin-bottom:0;">
+      <h2>강사 소개</h2>
+    </div>
+    <div class="instructor-card reveal">
+      <div class="instructor-avatar"></div>
+      <div class="instructor-info">
+        <div class="instructor-top">
+          <div>
+            <div class="name">권진석 <span class="role-tag">멘토</span></div>
+            <div class="title">Product Designer</div>
+            <p class="desc">글로벌 테크 기업부터 스타트업 C-Level까지,<br>실무 리더십과 글로벌 감각을 겸비한 프로덕트 디자인 전문가</p>
+          </div>
+          <div class="instructor-toggle">
+            이력 보기
+            <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+        <div class="instructor-detail">
+          <ul>
+            <li>글로벌 테크 기업 프로덕트 디자인팀 근무</li>
+            <li>스타트업 C-Level 프로덕트 총괄 경험</li>
+            <li>디자인 시스템 구축 및 협업 프로세스 설계 전문</li>
+            <li>프로덕트 디자인 실무 강의 및 멘토링 다수 진행</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 학습공간 및 수업 방식 ===== -->
+  <section class="space-section">
+    <div class="section-head reveal">
+      <h2>학습공간 및 수업 방식</h2>
+      <p>어디서든 같은 몰입감으로 배울 수 있도록 학습 공간을 세심하게 설계했습니다.</p>
+    </div>
+
+    <div class="space-block reveal">
+      <h4>ZEP</h4>
+      <p>실시간 화상 강의와 자유로운 소통이 가능한 메타버스 학습 공간입니다.</p>
+      <div class="space-gallery">
+        <div class="space-photo"></div>
+        <div class="space-photo"></div>
+        <div class="space-photo"></div>
+      </div>
+    </div>
+
+    <div class="space-block reveal">
+      <h4>ZEP</h4>
+      <p>강의실 외에도 자유롭게 이동하며 스터디하고, 멘토와 소통할 수 있는 공간을 제공합니다.</p>
+      <div class="space-video">
+        <div class="space-play">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 2.5L15 9L4 15.5V2.5Z" fill="#ffffff"/></svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 지원 방식 ===== -->
+  <section class="apply-section">
+    <div class="section-head reveal">
+      <h2>지원 방식</h2>
+      <p>나에게 맞는 트랙을 선택하고, 아래 절차에 따라 지원해보세요.</p>
+    </div>
+
+    <div class="track-tabs reveal">
+      <div class="track-tab" data-track="portfolio">
+        <span class="eyebrow">Track 01 포트폴리오 전형</span>
+        <h3>Portfolio Battle</h3>
+        <p class="track-note">완성도 높은 포트폴리오로 실력을 증명하는 트랙입니다.</p>
+        <div class="track-steps">
+          <div><b>01</b>과정 지원 · 지원서 제출</div>
+          <div><b>02</b>서류 검토</div>
+          <div><b>03</b>포트폴리오 평가</div>
+          <div><b>04</b>최종 합격</div>
+        </div>
+      </div>
+      <div class="track-tab active" data-track="interview">
+        <span class="eyebrow">Track 02 면접 전형</span>
+        <h3>Hidden Gem</h3>
+        <p class="track-note">가능성을 지닌 지원자는 그룹 면접으로 협업, 인성을 확인합니다.</p>
+        <div class="track-steps">
+          <div><b>01</b>과정 지원 · 26.5.25(월) 지원서 및 고용24 수강신청</div>
+          <div><b>02</b>서류 합격 · 26.5.26(화)</div>
+          <div><b>03</b>면접 · 26.5.28(목) ~ 26.5.29(금)</div>
+          <div><b>04</b>최종 합격 · 26.6.2(화)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="apply-cta reveal">
+      <a href="#">지원하기 <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M1 5H15M15 5L11 1M15 5L11 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </section>
+
+  <!-- ===== 자주 묻는 질문 ===== -->
+  <section class="faq-section">
+    <div class="section-head center reveal" style="margin-bottom:0;">
+      <h2>자주 묻는 질문</h2>
+    </div>
+
+    <div class="faq-tabs reveal">
+      <div class="faq-tab active" data-cat="all">전체</div>
+      <div class="faq-tab" data-cat="course">교육과정</div>
+      <div class="faq-tab" data-cat="apply">지원·비용</div>
+      <div class="faq-tab" data-cat="job">수료·취업</div>
+    </div>
+
+    <div class="faq-list reveal">
+      <div class="faq-item" data-cat="course">
+        <div class="faq-question">비전공자도 수강할 수 있나요?
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1V13M1 7H13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <div class="faq-answer"><p>네, 디자인 기초부터 차근차근 다루기 때문에 비전공자도 충분히 따라올 수 있습니다.</p></div>
+      </div>
+      <div class="faq-item" data-cat="course">
+        <div class="faq-question">수업은 어떤 방식으로 진행되나요?
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1V13M1 7H13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <div class="faq-answer"><p>ZEP 메타버스 공간에서 실시간 화상 강의와 실습, 멘토링이 함께 진행됩니다.</p></div>
+      </div>
+      <div class="faq-item" data-cat="apply">
+        <div class="faq-question">교육비는 얼마인가요?
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1V13M1 7H13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <div class="faq-answer"><p>국비지원 대상자의 경우 자기부담금만으로 수강할 수 있습니다. 자세한 내용은 상담을 통해 안내드립니다.</p></div>
+      </div>
+      <div class="faq-item" data-cat="apply">
+        <div class="faq-question">지원 자격이 따로 있나요?
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1V13M1 7H13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <div class="faq-answer"><p>고용24 수강신청 요건을 충족하면 누구나 지원 가능합니다.</p></div>
+      </div>
+      <div class="faq-item" data-cat="job">
+        <div class="faq-question">수료 후 취업 연계가 되나요?
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1V13M1 7H13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <div class="faq-answer"><p>우수 수료생은 협력사 채용 지원 시 우대 혜택을 받을 수 있습니다.</p></div>
+      </div>
+      <div class="faq-item" data-cat="job">
+        <div class="faq-question">훈련장려금은 어떻게 지급되나요?
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1V13M1 7H13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <div class="faq-answer"><p>출석 기준을 충족하면 월 최대 300,000원이 지급됩니다.</p></div>
+      </div>
+    </div>
+  </section>
+
   <div class="bottom-divider"></div>
 
   <div class="apply-bottom">
@@ -1365,5 +2129,99 @@
     </div>
   </footer>
 
+  <script>
+  (function () {
+    // 스크롤 리빌 (fade-up)
+    var revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      revealEls.forEach(function (el) { io.observe(el); });
+    } else {
+      revealEls.forEach(function (el) { el.classList.add('in-view'); });
+    }
+
+    // 혜택 상세보기 토글
+    var benefitToggle = document.querySelector('.benefit-toggle');
+    var benefitList = document.querySelector('.benefit-list');
+    if (benefitToggle && benefitList) {
+      benefitToggle.addEventListener('click', function () {
+        benefitToggle.classList.toggle('open');
+        benefitList.classList.toggle('collapsed');
+      });
+    }
+
+    // 키워드 클릭 -> 혜택 상세보기 강조
+    var keywordTags = document.querySelectorAll('.keyword-tag');
+    var benefitItems = document.querySelectorAll('.benefit-item');
+    keywordTags.forEach(function (tag) {
+      tag.addEventListener('click', function () {
+        keywordTags.forEach(function (t) { t.classList.remove('active'); });
+        tag.classList.add('active');
+        var target = tag.getAttribute('data-target');
+        benefitItems.forEach(function (item) {
+          item.classList.toggle('active', item.getAttribute('data-key') === target);
+        });
+        if (benefitList && benefitList.classList.contains('collapsed')) {
+          benefitToggle.classList.add('open');
+          benefitList.classList.remove('collapsed');
+        }
+        var activeItem = document.querySelector('.benefit-item[data-key="' + target + '"]');
+        if (activeItem) { activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+      });
+    });
+
+    // 강사 이력 보기 토글
+    var instrToggle = document.querySelector('.instructor-toggle');
+    var instrDetail = document.querySelector('.instructor-detail');
+    if (instrToggle && instrDetail) {
+      instrToggle.addEventListener('click', function () {
+        instrToggle.classList.toggle('open');
+        instrDetail.classList.toggle('open');
+      });
+    }
+
+    // 지원 방식 트랙 탭 (클릭 시 사이즈/내용 전환)
+    var trackTabs = document.querySelectorAll('.track-tab');
+    trackTabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        trackTabs.forEach(function (t) { t.classList.remove('active'); });
+        tab.classList.add('active');
+      });
+    });
+
+    // 자주 묻는 질문 아코디언 + 카테고리 필터
+    var faqQuestions = document.querySelectorAll('.faq-question');
+    faqQuestions.forEach(function (q) {
+      q.addEventListener('click', function () {
+        var item = q.closest('.faq-item');
+        var wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(function (i) { i.classList.remove('open'); });
+        if (!wasOpen) { item.classList.add('open'); }
+      });
+    });
+
+    var faqTabs = document.querySelectorAll('.faq-tab');
+    var faqItems = document.querySelectorAll('.faq-item');
+    faqTabs.forEach(function (tabEl) {
+      tabEl.addEventListener('click', function () {
+        faqTabs.forEach(function (t) { t.classList.remove('active'); });
+        tabEl.classList.add('active');
+        var cat = tabEl.getAttribute('data-cat');
+        faqItems.forEach(function (item) {
+          item.classList.remove('open');
+          var show = cat === 'all' || item.getAttribute('data-cat') === cat;
+          item.classList.toggle('hidden', !show);
+        });
+      });
+    });
+  })();
+  </script>
 </body>
 </html>
