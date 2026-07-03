@@ -114,13 +114,12 @@
   }
 
   .hero-overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    /* soften the video so foreground text/logo stays readable */
-    background: radial-gradient(ellipse at 50% 20%, rgba(10,10,10,0.35) 0%, rgba(10,10,10,0.75) 60%, rgba(10,10,10,0.92) 100%);
-  }
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 20%, rgba(10,10,10,0.1) 0%, rgba(10,10,10,0.3) 60%, rgba(10,10,10,0.5) 100%);
+}
 
   /* Fully hides the video until the visitor hovers the hero */
   .hero-video-mask {
