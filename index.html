@@ -370,7 +370,7 @@
   }
   .pc-track {
     display: flex;
-    gap: 20px;
+    gap: 10px;
     will-change: transform;
     transition: transform .6s cubic-bezier(.65,0,.35,1);
   }
@@ -385,7 +385,7 @@
     flex-direction: column;
     justify-content: flex-end;
     cursor: pointer;
-    transform: scale(.86);
+    transform: scale(.82);
     opacity: .45;
     filter: grayscale(.3);
     transition: transform .5s cubic-bezier(.34,1.2,.64,1), opacity .5s ease, filter .5s ease, background .5s ease;
@@ -413,9 +413,11 @@
   }
   .pc-slide.active {
     background: linear-gradient(135deg, #c73a2e, #7a2018);
-    transform: scale(1.06);
+    transform: scale(1.24);
     opacity: 1;
     filter: grayscale(0);
+    z-index: 2;
+    box-shadow: 0 24px 50px rgba(0,0,0,.45);
   }
   .pc-slide.active .pc-cat,
   .pc-slide.active .pc-title,
@@ -656,6 +658,63 @@
   .roadmap-body {
     margin-top: 64px;
   }
+
+  .rt-toggle {
+    position: relative;
+    display: inline-flex;
+    background: #161616;
+    border: 1px solid #262626;
+    border-radius: 999px;
+    padding: 5px;
+    margin-bottom: 36px;
+  }
+  .rt-toggle-indicator {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    height: calc(100% - 10px);
+    border-radius: 999px;
+    background: linear-gradient(135deg, #e0392f, #a8281f);
+    transition: transform .4s cubic-bezier(.65,0,.35,1), width .4s cubic-bezier(.65,0,.35,1);
+    z-index: 0;
+  }
+  .rt-toggle-btn {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: none;
+    background: none;
+    padding: 7px 20px 7px 7px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #888888;
+    cursor: pointer;
+    transition: color .35s ease;
+    white-space: nowrap;
+    font-family: inherit;
+  }
+  .rt-toggle-btn.active { color: #ffffff; }
+  .rt-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #2a2a2a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+    transition: background .35s ease;
+  }
+  .rt-toggle-btn.active .rt-avatar { background: rgba(255,255,255,.2); }
+
+  @media (max-width: 700px) {
+    .rt-toggle { flex-wrap: wrap; }
+  }
+
   .roadmap-intro {
     display: flex;
     align-items: center;
@@ -680,11 +739,13 @@
     font-weight: 700;
     line-height: 1.5;
     margin-bottom: 8px;
+    transition: opacity .3s ease;
   }
   .roadmap-intro p {
     font-size: 13px;
     color: #888888;
     line-height: 1.8;
+    transition: opacity .3s ease;
   }
 
   .roadmap-timeline {
@@ -784,12 +845,26 @@
     max-width: 560px;
   }
   .curriculum-download {
-    font-size: 12px;
-    color: #cccccc;
-    border-bottom: 1px solid #555555;
-    padding-bottom: 3px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #e0392f, #a8281f);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 15px 24px;
+    border-radius: 999px;
     white-space: nowrap;
+    box-shadow: 0 10px 26px rgba(224,57,47,.28);
+    transition: transform .3s ease, box-shadow .3s ease, filter .3s ease;
   }
+  .curriculum-download svg { flex-shrink: 0; transition: transform .3s ease; }
+  .curriculum-download:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 34px rgba(224,57,47,.4);
+    filter: brightness(1.08);
+  }
+  .curriculum-download:hover svg { transform: translateY(2px); }
 
   .curriculum-tabs {
     display: flex;
@@ -833,6 +908,17 @@
     width: 1px;
     background: #262626;
   }
+  .curriculum-timeline::after {
+    content: "";
+    position: absolute;
+    left: 19px;
+    top: 8px;
+    width: 1px;
+    height: 0;
+    background: linear-gradient(to bottom, #e0392f, #ff6b57);
+    transition: height 1.3s cubic-bezier(.4,0,.2,1);
+  }
+  .curriculum-timeline.animate::after { height: calc(100% - 16px); }
   .ct-item {
     position: relative;
     padding-bottom: 28px;
@@ -853,12 +939,33 @@
     font-size: 12px;
     font-weight: 800;
     color: #999999;
+    transition: background .4s ease, border-color .4s ease, color .4s ease, transform .4s cubic-bezier(.34,1.56,.64,1);
+  }
+  .curriculum-timeline.animate .ct-item:nth-child(1) .ct-marker { transition-delay: .15s; }
+  .curriculum-timeline.animate .ct-item:nth-child(2) .ct-marker { transition-delay: .55s; }
+  .curriculum-timeline.animate .ct-item:nth-child(3) .ct-marker { transition-delay: .95s; }
+  .curriculum-timeline.animate .ct-marker {
+    background: linear-gradient(135deg, #e0392f, #b52d21);
+    border-color: transparent;
+    color: #ffffff;
+    transform: scale(1.1);
   }
   .ct-content {
     background: #141414;
     border: 1px solid #232323;
     border-radius: 14px;
     padding: 36px 40px;
+    opacity: .4;
+    transform: translateX(-6px);
+    transition: opacity .5s ease, transform .5s ease, border-color .4s ease;
+  }
+  .curriculum-timeline.animate .ct-item:nth-child(1) .ct-content { transition-delay: .15s; }
+  .curriculum-timeline.animate .ct-item:nth-child(2) .ct-content { transition-delay: .55s; }
+  .curriculum-timeline.animate .ct-item:nth-child(3) .ct-content { transition-delay: .95s; }
+  .curriculum-timeline.animate .ct-content {
+    opacity: 1;
+    transform: translateX(0);
+    border-color: rgba(224,57,47,.25);
   }
   .ct-label {
     display: inline-block;
@@ -922,40 +1029,84 @@
     color: #999999;
   }
 
-  /* ===== Growth Graph (hover reveal) ===== */
-  .growth-graph {
+  /* ===== Learning Curve Comparison Chart ===== */
+  .lc-card {
     position: relative;
     max-width: 920px;
     margin: 56px auto 0;
-    aspect-ratio: 880 / 400;
     border-radius: 16px;
-    overflow: hidden;
     background: #111111;
     border: 1px solid #232323;
-    cursor: pointer;
+    padding: 40px 44px 36px;
   }
 
-  .gg-layer {
+  .lc-top {
+    margin-bottom: 52px;
+  }
+  .lc-legend {
+    display: flex;
+    gap: 24px;
+  }
+  .lc-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #999999;
+  }
+  .lc-legend-item .swatch {
+    width: 16px;
+    height: 3px;
+    border-radius: 2px;
+  }
+  .lc-legend-item.red .swatch { background: #e0392f; }
+  .lc-legend-item.red { color: #eeeeee; }
+  .lc-legend-item.gray .swatch { background: #555555; border-top: 1px dashed #888888; height: 0; }
+
+  .lc-callout {
     position: absolute;
-    inset: 0;
-    padding: 36px 40px 28px;
+    left: 80%;
+    top: 62%;
+    width: 132px;
+    height: 132px;
+    margin: -66px 0 0 -66px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #e0453a, #9c2a20);
+    box-shadow: 0 0 0 8px rgba(224,57,47,.10), 0 20px 40px rgba(0,0,0,.35);
     display: flex;
     flex-direction: column;
-    transition: opacity .5s ease;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity .5s ease .4s, transform .3s ease, box-shadow .3s ease;
+  }
+  .lc-card.in-view .lc-callout { opacity: 1; }
+  .lc-callout strong {
+    font-size: 19px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.3;
+  }
+  .lc-callout span {
+    font-size: 11px;
+    color: rgba(255,255,255,.8);
+    margin-top: 4px;
+  }
+  .lc-callout:hover,
+  .lc-callout.active {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(224,57,47,.16), 0 24px 46px rgba(0,0,0,.4);
   }
 
-  .gg-base { opacity: 1; }
-  .growth-graph:hover .gg-base { opacity: 0; }
-
-  .gg-hover { opacity: 0; pointer-events: none; }
-  .growth-graph:hover .gg-hover { opacity: 1; }
-
-  .gg-plot {
+  .lc-plot {
     position: relative;
-    flex: 1;
+    height: 260px;
   }
 
-  .gg-svg {
+  .lc-svg {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -963,186 +1114,212 @@
     overflow: visible;
   }
 
-  .gg-line-base {
+  .lc-line-gray {
     fill: none;
-    stroke: #4a4a4a;
+    stroke: #666666;
     stroke-width: 2;
-    stroke-dasharray: 4 6;
+    stroke-linecap: round;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    vector-effect: non-scaling-stroke;
+    transition: stroke-dashoffset 2.2s cubic-bezier(.4,0,.2,1);
   }
+  .lc-card.in-view .lc-line-gray { stroke-dashoffset: 0; }
 
-  .gg-line-hover {
+  .lc-line-red {
     fill: none;
     stroke: #e0392f;
     stroke-width: 3;
     stroke-linecap: round;
     stroke-dasharray: 100;
     stroke-dashoffset: 100;
-    transition: stroke-dashoffset 1s cubic-bezier(.16,1,.3,1);
+    vector-effect: non-scaling-stroke;
+    transition: stroke-dashoffset 1s cubic-bezier(.16,1,.3,1) .3s, filter .4s ease;
   }
-  .growth-graph:hover .gg-line-hover {
-    stroke-dashoffset: 0;
+  .lc-card.in-view .lc-line-red { stroke-dashoffset: 0; }
+  .lc-card.lc-callout-active .lc-line-red {
+    filter: drop-shadow(0 0 6px rgba(224,57,47,.75));
   }
 
-  .gg-dot {
+  .lc-line-red-tail {
+    fill: none;
+    stroke: #e0392f;
+    stroke-width: 3;
+    stroke-linecap: round;
+    vector-effect: non-scaling-stroke;
+    opacity: 0;
+    transition: opacity .5s ease 1.3s;
+  }
+  .lc-card.in-view .lc-line-red-tail { opacity: 1; }
+  .lc-card.lc-callout-active .lc-line-red-tail {
+    filter: drop-shadow(0 0 6px rgba(224,57,47,.75));
+  }
+
+  .lc-guide {
     position: absolute;
-    width: 8px;
-    height: 8px;
-    margin: -4px 0 0 -4px;
-    border-radius: 50%;
-    background: #4a4a4a;
-    border: 2px solid #111111;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: repeating-linear-gradient(to bottom, rgba(224,57,47,.35) 0 4px, transparent 4px 8px);
+    opacity: 0;
+    transition: opacity .4s ease .9s;
   }
+  .lc-card.in-view .lc-guide { opacity: 1; }
 
-  .gg-dot-hover {
+  .lc-dot {
     position: absolute;
     width: 9px;
     height: 9px;
     margin: -4.5px 0 0 -4.5px;
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity .3s ease, transform .3s cubic-bezier(.34,1.56,.64,1);
+  }
+  .lc-dot.gray {
+    width: 22px;
+    height: 22px;
+    margin: -11px 0 0 -11px;
+    background: #1a1a1a;
+    border: 4px solid #e5e5e5;
+    box-shadow: 0 0 0 4px rgba(255,255,255,.08);
+    transition-delay: 2.3s;
+  }
+  .lc-card.in-view .lc-dot { opacity: 1; transform: scale(1); }
+
+  /* 4단계 성장 지점 (레드 커브 위) */
+  .lc-stage-dot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    margin: -4px 0 0 -4px;
     border-radius: 50%;
     background: #e0392f;
     border: 2px solid #ffffff;
     opacity: 0;
     transform: scale(0);
     transition: opacity .3s ease, transform .3s cubic-bezier(.34,1.56,.64,1);
-    transition-delay: var(--dd, 0s);
   }
-  .growth-graph:hover .gg-dot-hover {
-    opacity: 1;
-    transform: scale(1);
+  .lc-card.in-view .lc-stage-dot[data-stage="1"] { transition-delay: .35s; }
+  .lc-card.in-view .lc-stage-dot[data-stage="2"] { transition-delay: .55s; }
+  .lc-card.in-view .lc-stage-dot[data-stage="3"] { transition-delay: .75s; }
+  .lc-card.in-view .lc-stage-dot[data-stage="4"] { transition-delay: .95s; }
+  .lc-card.in-view .lc-stage-dot { opacity: 1; transform: scale(1); }
+
+  .lc-card.lc-callout-active .lc-stage-dot {
+    animation: stagePulse .7s ease;
+  }
+  .lc-card.lc-callout-active .lc-stage-dot[data-stage="1"] { animation-delay: 0s; }
+  .lc-card.lc-callout-active .lc-stage-dot[data-stage="2"] { animation-delay: .22s; }
+  .lc-card.lc-callout-active .lc-stage-dot[data-stage="3"] { animation-delay: .44s; }
+  .lc-card.lc-callout-active .lc-stage-dot[data-stage="4"] { animation-delay: .66s; }
+  @keyframes stagePulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(224,57,47,.6); }
+    45% { transform: scale(1.9); box-shadow: 0 0 0 9px rgba(224,57,47,0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(224,57,47,0); }
   }
 
-  .gg-label {
+  .lc-badge {
     position: absolute;
-    background: #1e1e1e;
-    color: #bbbbbb;
-    font-size: 11px;
-    line-height: 1.5;
-    padding: 8px 12px;
-    border-radius: 6px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 800;
     white-space: nowrap;
-    text-align: center;
-    transform: translate(-50%, 0);
-  }
-
-  .gg-label-hover {
-    position: absolute;
-    background: #2a1614;
-    color: #ffffff;
-    font-size: 11px;
-    line-height: 1.5;
-    padding: 8px 12px;
-    border-radius: 6px;
-    white-space: nowrap;
-    text-align: center;
-    transform: translate(-50%, 8px);
     opacity: 0;
-    transition: opacity .35s ease, transform .35s ease;
-    transition-delay: var(--dd, 0s);
+    transform: translate(-50%, 6px);
+    transition: opacity .4s ease, transform .4s ease, box-shadow .4s ease;
   }
-  .growth-graph:hover .gg-label-hover {
-    opacity: 1;
-    transform: translate(-50%, 0);
+  .lc-badge.red {
+    background: #e0392f;
+    color: #ffffff;
+    transition-delay: 1.05s;
+  }
+  .lc-badge.gray {
+    background: #1e1e1e;
+    color: #aaaaaa;
+    font-weight: 700;
+    transition-delay: 2.45s;
+  }
+  .lc-card.in-view .lc-badge { opacity: 1; transform: translate(-50%, 0); }
+  .lc-card.lc-callout-active .lc-badge.red {
+    transform: translate(-50%, -3px) scale(1.05);
+    box-shadow: 0 10px 22px rgba(224,57,47,.4);
   }
 
-  .gg-axis {
+  .lc-axis {
     display: flex;
     justify-content: space-between;
-    margin-top: 14px;
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid #1f1f1f;
     font-size: 11px;
     color: #666666;
   }
-  .gg-axis span:last-child {
-    color: #999999;
-    font-weight: 700;
-    font-size: 13px;
-  }
-  .gg-axis-hover span:last-child {
-    color: #e0392f;
+  .lc-axis span.hl {
+    color: #bbbbbb;
     font-weight: 800;
-    font-size: 14px;
+    font-size: 12px;
   }
 
-  .gg-tag {
-    display: inline-flex;
-    align-self: flex-start;
-    background: #e0392f;
-    color: #ffffff;
+  /* 4단계 성장 요약 */
+  .lc-stages {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-top: 36px;
+    padding-top: 32px;
+    border-top: 1px solid #1f1f1f;
+  }
+  .lc-stage {
+    padding: 4px 4px 0 20px;
+    border-left: 2px solid #2a2a2a;
+    transition: border-color .4s ease;
+  }
+  .lc-card.lc-callout-active .lc-stage { border-left-color: rgba(224,57,47,.5); }
+  .lc-stage-num {
+    display: block;
     font-size: 11px;
+    font-weight: 800;
+    color: #e0553f;
+    margin-bottom: 8px;
+  }
+  .lc-stage h5 {
+    font-size: 13px;
     font-weight: 700;
-    padding: 6px 12px;
-    border-radius: 20px;
-    opacity: 0;
-    transform: translateY(-6px);
-    transition: opacity .35s ease, transform .35s ease;
-    transition-delay: .1s;
-  }
-  .growth-graph:hover .gg-tag {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .gg-heading {
-    margin-top: 12px;
-    font-size: 15px;
-    line-height: 1.5;
     color: #eeeeee;
-    text-align: left;
-    opacity: 0;
-    transform: translateY(-6px);
-    transition: opacity .35s ease, transform .35s ease;
-    transition-delay: .18s;
+    line-height: 1.4;
+    margin-bottom: 6px;
   }
-  .growth-graph:hover .gg-heading {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .gg-heading strong {
-    color: #ffffff;
-    font-weight: 800;
-  }
-
-  .gg-badge {
-    position: absolute;
-    right: 2%;
-    top: 34%;
-    width: 118px;
-    height: 118px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 30%, #e04a3f, #b8291f);
-    box-shadow: 0 0 0 6px rgba(224,57,47,0.12);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: #ffffff;
-    opacity: 0;
-    transform: scale(.4);
-    transition: opacity .4s ease, transform .5s cubic-bezier(.34,1.56,.64,1);
-    transition-delay: .85s;
-  }
-  .growth-graph:hover .gg-badge {
-    opacity: 1;
-    transform: scale(1);
-  }
-  .gg-badge-num {
-    font-size: 15px;
-    font-weight: 800;
-    line-height: 1.3;
-  }
-  .gg-badge-text {
-    font-size: 10px;
-    margin-top: 2px;
-    color: #ffd9d5;
+  .lc-stage p {
+    font-size: 12px;
+    color: #888888;
+    line-height: 1.7;
   }
 
   @media (max-width: 700px) {
-    .growth-graph { aspect-ratio: 400 / 420; }
-    .gg-layer { padding: 24px 18px 20px; }
-    .gg-label, .gg-label-hover { font-size: 9px; padding: 6px 8px; white-space: normal; max-width: 90px; }
-    .gg-badge { width: 88px; height: 88px; }
-    .gg-badge-num { font-size: 12px; }
-    .gg-heading { font-size: 12px; }
+    .lc-card { padding: 28px 20px 24px; }
+    .lc-plot { height: 260px; }
+    .lc-top { margin-bottom: 60px; }
+    .lc-callout {
+      width: 92px;
+      height: 92px;
+      margin: -46px 0 0 -46px;
+      left: 74%;
+      top: 68%;
+    }
+    .lc-callout strong { font-size: 14px; }
+    .lc-callout span { font-size: 9px; }
+    .lc-badge {
+      font-size: 10px;
+      padding: 6px 10px;
+      white-space: normal;
+      max-width: 108px;
+      line-height: 1.4;
+      text-align: center;
+    }
+    .lc-badge.gray { left: 68% !important; top: -14% !important; }
+    .lc-stages { grid-template-columns: 1fr 1fr; gap: 24px 16px; }
   }
 
   /* ===== Shared scroll reveal ===== */
@@ -1316,109 +1493,71 @@
 
   /* ===== Benefits ===== */
   .benefits-section { margin-top: 180px; }
-  .benefits-body {
+
+  .bf-rows {
     max-width: 920px;
-    margin: 40px auto 0;
+    margin: 56px auto 0;
     padding: 0 40px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
-    align-items: start;
   }
-  .benefit-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    font-weight: 700;
-    color: #cccccc;
-    cursor: pointer;
-    margin-bottom: 8px;
-  }
-  .benefit-toggle svg { transition: transform .3s ease; }
-  .benefit-toggle.open svg { transform: rotate(180deg); }
-
-  .benefit-list {
-    margin-top: 16px;
-    max-height: 600px;
-    overflow: hidden;
-    transition: max-height .5s ease;
-  }
-  .benefit-list.collapsed { max-height: 0; }
-
-  .benefit-item {
-    padding: 22px 14px;
-    border-bottom: 1px solid #1f1f1f;
-    border-radius: 8px;
-    transition: background .35s ease, padding-left .35s ease;
-  }
-  .benefit-item h5 {
-    font-size: 15px;
-    font-weight: 700;
-    color: #e5e5e5;
+  .bf-row {
     display: flex;
     align-items: center;
-    gap: 8px;
-    transition: color .3s ease;
+    gap: 56px;
   }
-  .benefit-item .dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #555555;
-    flex-shrink: 0;
-    transition: background .3s ease, box-shadow .3s ease;
-  }
-  .benefit-item p {
-    font-size: 13px;
-    color: #888888;
-    margin-top: 8px;
-    margin-left: 14px;
-    line-height: 1.8;
-  }
-  .benefit-item.active {
-    background: rgba(224,57,47,.08);
-    padding-left: 20px;
-  }
-  .benefit-item.active h5 { color: #e0553f; }
-  .benefit-item.active .dot { background: #e0392f; box-shadow: 0 0 0 4px rgba(224,57,47,.18); }
+  .bf-row + .bf-row { margin-top: 72px; }
+  .bf-row.reverse { flex-direction: row-reverse; }
 
-  .keyword-panel {
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 76px;
-    gap: 12px;
-    background-image: radial-gradient(#242424 1px, transparent 1px);
-    background-size: 18px 18px;
-    padding: 22px;
-    border-radius: 14px;
-    border: 1px solid #1f1f1f;
-  }
-  .keyword-tag {
-    background: #1c1c1c;
-    border: 1px solid #2a2a2a;
-    border-radius: 10px;
+  .bf-media {
+    flex: 0 0 42%;
+    aspect-ratio: 4 / 3;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #232323, #141414);
+    border: 1px solid #262626;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
+    overflow: hidden;
+  }
+  .bf-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .bf-media-label {
+    font-size: 12px;
+    color: #4a4a4a;
+    font-weight: 600;
+    letter-spacing: .02em;
+  }
+
+  .bf-text { flex: 1; min-width: 0; }
+  .bf-num {
+    display: inline-block;
     font-size: 13px;
-    font-weight: 700;
-    color: #cccccc;
-    cursor: pointer;
-    padding: 8px;
-    transition: background .35s ease, border-color .35s ease, color .35s ease, transform .35s ease, box-shadow .35s ease;
+    font-weight: 800;
+    color: #e0553f;
+    letter-spacing: .02em;
   }
-  .keyword-tag:hover { border-color: #e0392f; color: #ffffff; }
-  .keyword-tag.active {
-    background: #e0392f;
+  .bf-text h4 {
+    font-size: 20px;
+    font-weight: 800;
     color: #ffffff;
-    border-color: #e0392f;
-    transform: scale(1.03);
-    box-shadow: 0 10px 26px rgba(224,57,47,.35);
+    margin-top: 10px;
+    line-height: 1.4;
   }
-  .keyword-tag.span2 { grid-row: span 2; font-size: 14px; }
+  .bf-text p {
+    font-size: 13px;
+    color: #999999;
+    line-height: 1.8;
+    margin-top: 14px;
+  }
+
+  @media (max-width: 700px) {
+    .bf-row, .bf-row.reverse { flex-direction: column; align-items: stretch; gap: 24px; }
+    .bf-row + .bf-row { margin-top: 48px; }
+    .bf-media { flex-basis: auto; width: 100%; }
+  }
 
   /* ===== Instructor ===== */
   .instructor-section { margin-top: 180px; }
@@ -1541,14 +1680,14 @@
     padding: 0 40px;
     display: flex;
     gap: 16px;
-    height: 340px;
+    height: 400px;
   }
   .track-tab {
     flex: 1;
     background: #161616;
     border: 1px solid #232323;
     border-radius: 16px;
-    padding: 28px;
+    padding: 44px 36px;
     position: relative;
     overflow: hidden;
     cursor: pointer;
@@ -1950,11 +2089,21 @@
     <p>현직자와 함께, 기획부터 개발 협업, AI 활용까지<br>7개월 동안 실무 역량을 완성하세요.</p>
 
     <div class="roadmap-body">
+      <div class="rt-toggle" id="rtToggle">
+        <div class="rt-toggle-indicator"></div>
+        <button class="rt-toggle-btn active" data-persona="career" type="button">
+          <span class="rt-avatar">💼</span>경력직 이직 Ver.
+        </button>
+        <button class="rt-toggle-btn" data-persona="fresh" type="button">
+          <span class="rt-avatar">🎓</span>첫 취업 준비 Ver.
+        </button>
+      </div>
+
       <div class="roadmap-intro reveal">
-        <div class="badge">7M</div>
+        <div class="badge" id="rtBadge">7M</div>
         <div>
-          <h4>경력직 이직을 위한 효율 루트</h4>
-          <p>현직자와 함께, 기획부터 개발 협업, AI 활용까지 7개월 동안 실무 역량을 완성하세요.</p>
+          <h4 id="rtIntroTitle">경력직 이직을 위한 효율 루트</h4>
+          <p id="rtIntroDesc">기존 커리어의 강점을 살려, 실무 경험을 인정받는 포트폴리오로 빠르게 전환하세요.</p>
         </div>
       </div>
 
@@ -1962,23 +2111,23 @@
         <div class="rt-line"><div class="rt-line-fill"></div></div>
         <div class="rt-step">
           <span class="rt-dot">1</span>
-          <h4>기초 다지기</h4>
-          <p>UX 원리와 툴 활용법을 익히며<br>디자인 기본기를 완성합니다.</p>
+          <h4>현재 역량 진단</h4>
+          <p>기존 커리어 경험을 디자인 관점으로<br>재해석하고 강점을 도출합니다.</p>
         </div>
         <div class="rt-step">
           <span class="rt-dot">2</span>
-          <h4>실전 프로젝트</h4>
-          <p>실제 서비스 기획부터 디자인까지<br>A to Z를 직접 경험합니다.</p>
+          <h4>실무 프로젝트 전환</h4>
+          <p>현업 수준 프로젝트로 포트폴리오를<br>실무형으로 업그레이드합니다.</p>
         </div>
         <div class="rt-step">
           <span class="rt-dot">3</span>
-          <h4>협업 &amp; 피드백</h4>
-          <p>PM, 개발자와 협업하며<br>현직자 피드백으로 완성도를 높입니다.</p>
+          <h4>협업 &amp; 리더십 강조</h4>
+          <p>PM·개발자와의 협업 경험을<br>포트폴리오에 녹여 차별화합니다.</p>
         </div>
         <div class="rt-step">
           <span class="rt-dot">4</span>
-          <h4>포트폴리오 완성</h4>
-          <p>취업 시장에 바로 통하는<br>포트폴리오로 마무리합니다.</p>
+          <h4>이직 포트폴리오 완성</h4>
+          <p>경력 전환에 특화된 포트폴리오와<br>이력서로 마무리합니다.</p>
         </div>
       </div>
     </div>
@@ -1993,7 +2142,10 @@
           수십 가지 클라우드 상품의 실제로 체계적이고 검증된 KT CLOUD의 독점적 경험 자산을 통해
         </p>
       </div>
-      <a href="#" class="curriculum-download">상세 커리큘럼 다운로드</a>
+      <a href="#" class="curriculum-download">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1V9M7 9L4 6M7 9L10 6M2 11V12.5C2 12.7761 2.22386 13 2.5 13H11.5C11.7761 13 12 12.7761 12 12.5V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        상세 커리큘럼 다운로드
+      </a>
     </div>
 
     <div class="curriculum-tabs">
@@ -2147,54 +2299,63 @@
     <h2>7개월은 당신이 성장하는<br>가장 효율적인 투자 시간입니다.</h2>
     <p>혼자서는 2년 이상 걸릴 과정들을 체계적인 환경에서 7개월로 압축합니다.</p>
 
-    <div class="growth-graph">
-      <!-- 기본 상태 (회색) -->
-      <div class="gg-layer gg-base">
-        <div class="gg-plot">
-          <svg class="gg-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path class="gg-line-base" d="M2,97 C15,96 25,94 35,88 C45,80 48,74 52,68 C60,58 64,54 68,48 C80,35 88,22 95,15" vector-effect="non-scaling-stroke"/>
-          </svg>
-          <span class="gg-dot" style="left:2%; top:97%;"></span>
-          <span class="gg-dot" style="left:35%; top:88%;"></span>
-          <span class="gg-dot" style="left:52%; top:68%;"></span>
-          <span class="gg-dot" style="left:68%; top:48%;"></span>
-          <span class="gg-dot" style="left:95%; top:15%;"></span>
-          <div class="gg-label" style="left:2%; top:80%;">무엇부터<br>시작해야 할지<br>막막함</div>
-          <div class="gg-label" style="left:35%; top:70%;">기초 툴 학습<br><span style="color:#777;">(시간 소모)</span></div>
-          <div class="gg-label" style="left:52%; top:50%;">프로젝트 시도<br><span style="color:#777;">(피드백 부재)</span></div>
-          <div class="gg-label" style="left:68%; top:28%;">협업 방식 이해<br><span style="color:#777;">(이른 좌절)</span></div>
-          <div class="gg-label" style="left:88%; top:2%;">포트폴리오 완성?<br><span style="color:#777;">(기한 없이 지연)</span></div>
-        </div>
-        <div class="gg-axis">
-          <span>시작</span><span>3개월</span><span>6개월</span><span>1년</span><span>1년 6개월</span><span>2년 이상</span>
+    <div class="lc-card reveal">
+      <div class="lc-top">
+        <div class="lc-legend">
+          <div class="lc-legend-item red"><span class="swatch"></span>KT CLOUD TECH UP</div>
+          <div class="lc-legend-item gray"><span class="swatch"></span>혼자 학습할 경우</div>
         </div>
       </div>
 
-      <!-- 호버 상태 (레드) -->
-      <div class="gg-layer gg-hover">
-        <span class="gg-tag">KT Tech Up과 함께하는 경우</span>
-        <p class="gg-heading">검증된 커리큘럼과 몰입 환경으로<br><strong>7개월 만에 실무 역량 완성</strong></p>
-        <div class="gg-plot">
-          <svg class="gg-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path class="gg-line-hover" pathLength="100" d="M3,96 C15,94 22,88 28,78 C38,68 42,64 48,58 C58,44 62,38 68,32 C78,20 85,12 95,8" vector-effect="non-scaling-stroke"/>
-          </svg>
-          <span class="gg-dot-hover" style="left:3%; top:96%; --dd:.15s;"></span>
-          <span class="gg-dot-hover" style="left:28%; top:78%; --dd:.32s;"></span>
-          <span class="gg-dot-hover" style="left:48%; top:58%; --dd:.5s;"></span>
-          <span class="gg-dot-hover" style="left:68%; top:32%; --dd:.68s;"></span>
-          <span class="gg-dot-hover" style="left:95%; top:8%; --dd:.85s;"></span>
-          <div class="gg-label-hover" style="left:3%; top:78%; --dd:.2s;">체계적인 로드맵으로<br>올바른 시작</div>
-          <div class="gg-label-hover" style="left:28%; top:58%; --dd:.38s;">기획/데이터 리서치<br>실무 역량 내재화</div>
-          <div class="gg-label-hover" style="left:48%; top:38%; --dd:.55s;">PM-개발자와<br>실전 협업 경험</div>
-          <div class="gg-label-hover" style="left:64%; top:12%; --dd:.72s;">AI 활용으로<br>생산성 극대화</div>
-          <div class="gg-label-hover" style="left:78%; top:-14%; --dd:.9s;">검증된 포트폴리오 완성<br>(취업/이직 준비 완료!)</div>
-          <div class="gg-badge">
-            <span class="gg-badge-num">약 17개월</span>
-            <span class="gg-badge-text">시간 절약 효과</span>
-          </div>
+      <div class="lc-plot">
+        <svg class="lc-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <path class="lc-line-gray" pathLength="100" d="M2,98 C35,96 68,74 100,8" vector-effect="non-scaling-stroke"/>
+          <path class="lc-line-red" pathLength="100" d="M2,96 C12,90 20,40 29,8" vector-effect="non-scaling-stroke"/>
+          <path class="lc-line-red-tail" d="M29,8 L100,8" vector-effect="non-scaling-stroke"/>
+        </svg>
+
+        <div class="lc-guide" style="left:29%;"></div>
+
+        <span class="lc-stage-dot" data-stage="1" style="left:2%; top:96%;"></span>
+        <span class="lc-stage-dot" data-stage="2" style="left:12%; top:65%;"></span>
+        <span class="lc-stage-dot" data-stage="3" style="left:21%; top:28%;"></span>
+        <span class="lc-stage-dot" data-stage="4" style="left:29%; top:8%;"></span>
+
+        <span class="lc-dot gray" style="left:100%; top:8%;"></span>
+
+        <div class="lc-badge red" style="left:29%; top:-10%;">7개월 만에 실무 역량 완성</div>
+        <div class="lc-badge gray" style="left:86%; top:-10%;">혼자면 2년 이상 소요</div>
+
+        <div class="lc-callout" id="lcCallout">
+          <strong>약 17개월</strong>
+          <span>시간 절약 효과</span>
         </div>
-        <div class="gg-axis gg-axis-hover">
-          <span>1개월</span><span>2개월</span><span>3개월</span><span>4개월</span><span>5개월</span><span>6개월</span><span>7개월</span>
+      </div>
+
+      <div class="lc-axis">
+        <span>시작</span><span>6개월</span><span>1년</span><span>1년 6개월</span><span class="hl">2년 이상</span>
+      </div>
+
+      <div class="lc-stages">
+        <div class="lc-stage">
+          <span class="lc-stage-num">01</span>
+          <h5>기초 다지기</h5>
+          <p>디자인 사고와 툴 활용법을 익히는 시작 단계</p>
+        </div>
+        <div class="lc-stage">
+          <span class="lc-stage-num">02</span>
+          <h5>실전 프로젝트 착수</h5>
+          <p>실제 서비스를 기획하고 설계해보는 단계</p>
+        </div>
+        <div class="lc-stage">
+          <span class="lc-stage-num">03</span>
+          <h5>협업 &amp; 피드백 반복</h5>
+          <p>PM·개발자와 협업하며 완성도를 높이는 단계</p>
+        </div>
+        <div class="lc-stage">
+          <span class="lc-stage-num">04</span>
+          <h5>포트폴리오 완성</h5>
+          <p>취업 시장에 통하는 결과물로 마무리하는 단계</p>
         </div>
       </div>
     </div>
@@ -2284,46 +2445,60 @@
       <p>배움에만 집중할 수 있도록, KT CLOUD TECH UP이 학습 환경부터 커리어까지 폭넓게 지원합니다.</p>
     </div>
 
-    <div class="benefits-body reveal">
-      <div>
-        <div class="benefit-toggle open">
-          혜택 상세보기
-          <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="benefit-list">
-          <div class="benefit-item" data-key="infra">
-            <h5><span class="dot"></span>프로젝트 맞춤형 실습 인프라 지원</h5>
-            <p>클라우드 실습 및 과제 수행에 필요한 최적의 구동 환경과 리소스를 제공합니다.</p>
-          </div>
-          <div class="benefit-item" data-key="ai">
-            <h5><span class="dot"></span>생성형 AI 도구 지원</h5>
-            <p>AI와 함께라면 학습이 더 빠르고 효율적입니다.</p>
-          </div>
-          <div class="benefit-item active" data-key="laptop">
-            <h5><span class="dot"></span>고성능 실무용 노트북 대여</h5>
-            <p>프로젝트 수행에 최적화된 고사양 노트북 대여 서비스를 제공합니다.</p>
-          </div>
-          <div class="benefit-item" data-key="infleran">
-            <h5><span class="dot"></span>인프런 강의 지원</h5>
-            <p>빠른 성장을 위해 1개월간 인프런 전 강의를 무제한으로 지원합니다.</p>
-          </div>
-          <div class="benefit-item" data-key="network">
-            <h5><span class="dot"></span>네트워킹 파티</h5>
-            <p>혼자가 아닌 연결의 힘으로 성장의 속도를 높이세요.</p>
-          </div>
-          <div class="benefit-item" data-key="grant">
-            <h5><span class="dot"></span>훈련 장려금 제공</h5>
-            <p>성실히 참여하시면 월 최대 300,000원의 훈련장려금이 지급됩니다.</p>
-          </div>
+    <div class="bf-rows">
+      <!-- 실제 구현 시 .bf-media 안의 span을 <img src="..." alt="..."> 로 교체하세요 -->
+      <div class="bf-row reveal">
+        <div class="bf-media"><span class="bf-media-label">이미지 영역 · 실습 환경</span></div>
+        <div class="bf-text">
+          <span class="bf-num">01</span>
+          <h4>프로젝트 맞춤형 실습 인프라 지원</h4>
+          <p>클라우드 실습 및 과제 수행에 필요한 최적의 구동 환경과 리소스를 제공합니다.</p>
         </div>
       </div>
 
-      <div class="keyword-panel">
-        <div class="keyword-tag" data-target="infleran">인프런 강의</div>
-        <div class="keyword-tag" data-target="grant">훈련 지원금</div>
-        <div class="keyword-tag active span2" data-target="laptop">노트북 대여</div>
-        <div class="keyword-tag" data-target="network">네트워킹 파티</div>
-        <div class="keyword-tag" data-target="ai">생성형 AI 지원</div>
+      <div class="bf-row reverse reveal">
+        <div class="bf-media"><span class="bf-media-label">이미지 영역 · AI 활용</span></div>
+        <div class="bf-text">
+          <span class="bf-num">02</span>
+          <h4>생성형 AI 도구 지원</h4>
+          <p>AI와 함께라면 학습이 더 빠르고 효율적입니다.</p>
+        </div>
+      </div>
+
+      <div class="bf-row reveal">
+        <div class="bf-media"><span class="bf-media-label">이미지 영역 · 노트북 대여</span></div>
+        <div class="bf-text">
+          <span class="bf-num">03</span>
+          <h4>고성능 실무용 노트북 대여</h4>
+          <p>프로젝트 수행에 최적화된 고사양 노트북 대여 서비스를 제공합니다.</p>
+        </div>
+      </div>
+
+      <div class="bf-row reverse reveal">
+        <div class="bf-media"><span class="bf-media-label">이미지 영역 · 인프런 강의</span></div>
+        <div class="bf-text">
+          <span class="bf-num">04</span>
+          <h4>인프런 강의 지원</h4>
+          <p>빠른 성장을 위해 1개월간 인프런 전 강의를 무제한으로 지원합니다.</p>
+        </div>
+      </div>
+
+      <div class="bf-row reveal">
+        <div class="bf-media"><span class="bf-media-label">이미지 영역 · 네트워킹 파티</span></div>
+        <div class="bf-text">
+          <span class="bf-num">05</span>
+          <h4>네트워킹 파티</h4>
+          <p>혼자가 아닌 연결의 힘으로 성장의 속도를 높이세요.</p>
+        </div>
+      </div>
+
+      <div class="bf-row reverse reveal">
+        <div class="bf-media"><span class="bf-media-label">이미지 영역 · 훈련 장려금</span></div>
+        <div class="bf-text">
+          <span class="bf-num">06</span>
+          <h4>훈련 장려금 제공</h4>
+          <p>성실히 참여하시면 월 최대 300,000원의 훈련장려금이 지급됩니다.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -2557,36 +2732,6 @@
       revealEls.forEach(function (el) { el.classList.add('in-view'); });
     }
 
-    // 혜택 상세보기 토글
-    var benefitToggle = document.querySelector('.benefit-toggle');
-    var benefitList = document.querySelector('.benefit-list');
-    if (benefitToggle && benefitList) {
-      benefitToggle.addEventListener('click', function () {
-        benefitToggle.classList.toggle('open');
-        benefitList.classList.toggle('collapsed');
-      });
-    }
-
-    // 키워드 클릭 -> 혜택 상세보기 강조
-    var keywordTags = document.querySelectorAll('.keyword-tag');
-    var benefitItems = document.querySelectorAll('.benefit-item');
-    keywordTags.forEach(function (tag) {
-      tag.addEventListener('click', function () {
-        keywordTags.forEach(function (t) { t.classList.remove('active'); });
-        tag.classList.add('active');
-        var target = tag.getAttribute('data-target');
-        benefitItems.forEach(function (item) {
-          item.classList.toggle('active', item.getAttribute('data-key') === target);
-        });
-        if (benefitList && benefitList.classList.contains('collapsed')) {
-          benefitToggle.classList.add('open');
-          benefitList.classList.remove('collapsed');
-        }
-        var activeItem = document.querySelector('.benefit-item[data-key="' + target + '"]');
-        if (activeItem) { activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
-      });
-    });
-
     // 강사 이력 보기 토글
     var instrToggle = document.querySelector('.instructor-toggle');
     var instrDetail = document.querySelector('.instructor-detail');
@@ -2598,19 +2743,121 @@
     }
 
     // 지원 방식 트랙 탭 (클릭 시 사이즈/내용 전환)
+    // 성장 로드맵 페르소나 토글 (경력직 이직 / 첫 취업 준비)
+    var roadmapPersonas = {
+      career: {
+        title: '경력직 이직을 위한 효율 루트',
+        desc: '기존 커리어의 강점을 살려, 실무 경험을 인정받는 포트폴리오로 빠르게 전환하세요.',
+        steps: [
+          { title: '현재 역량 진단', desc: '기존 커리어 경험을 디자인 관점으로<br>재해석하고 강점을 도출합니다.' },
+          { title: '실무 프로젝트 전환', desc: '현업 수준 프로젝트로 포트폴리오를<br>실무형으로 업그레이드합니다.' },
+          { title: '협업 &amp; 리더십 강조', desc: 'PM·개발자와의 협업 경험을<br>포트폴리오에 녹여 차별화합니다.' },
+          { title: '이직 포트폴리오 완성', desc: '경력 전환에 특화된 포트폴리오와<br>이력서로 마무리합니다.' }
+        ]
+      },
+      fresh: {
+        title: '첫 취업을 위한 효율 루트',
+        desc: '현직자와 함께, 기획부터 개발 협업, AI 활용까지 7개월 동안 실무 역량을 완성하세요.',
+        steps: [
+          { title: '기초 다지기', desc: 'UX 원리와 툴 활용법을 익히며<br>디자인 기본기를 완성합니다.' },
+          { title: '실전 프로젝트', desc: '실제 서비스 기획부터 디자인까지<br>A to Z를 직접 경험합니다.' },
+          { title: '협업 &amp; 피드백', desc: 'PM, 개발자와 협업하며<br>현직자 피드백으로 완성도를 높입니다.' },
+          { title: '포트폴리오 완성', desc: '취업 시장에 바로 통하는<br>포트폴리오로 마무리합니다.' }
+        ]
+      }
+    };
+
+    var rtToggleBtns = document.querySelectorAll('.rt-toggle-btn');
+    var rtIndicator = document.querySelector('.rt-toggle-indicator');
+    var rtSteps = document.querySelectorAll('.rt-step');
+    var rtIntroTitle = document.getElementById('rtIntroTitle');
+    var rtIntroDesc = document.getElementById('rtIntroDesc');
+    var rtTimeline = document.querySelector('.roadmap-timeline');
+    var rtIntro = document.querySelector('.roadmap-intro');
+
+    function moveRtIndicator(btn) {
+      if (!rtIndicator) return;
+      rtIndicator.style.width = btn.offsetWidth + 'px';
+      rtIndicator.style.transform = 'translateX(' + btn.offsetLeft + 'px)';
+    }
+
+    function applyRoadmapPersona(key) {
+      var data = roadmapPersonas[key];
+      if (!data) return;
+      rtIntro.style.opacity = '0';
+      setTimeout(function () {
+        rtIntroTitle.textContent = data.title.replace('&amp;', '&');
+        rtIntroDesc.textContent = data.desc.replace(/<br>/g, ' ').replace('&amp;', '&');
+        rtIntro.style.opacity = '1';
+      }, 200);
+      rtSteps.forEach(function (step, i) {
+        var stepData = data.steps[i];
+        if (!stepData) return;
+        step.querySelector('h4').innerHTML = stepData.title;
+        step.querySelector('p').innerHTML = stepData.desc;
+      });
+      if (rtTimeline) {
+        rtTimeline.classList.remove('in-view');
+        void rtTimeline.offsetWidth;
+        rtTimeline.classList.add('in-view');
+      }
+    }
+
+    rtToggleBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        rtToggleBtns.forEach(function (b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        moveRtIndicator(btn);
+        applyRoadmapPersona(btn.getAttribute('data-persona'));
+      });
+    });
+
+    if (rtToggleBtns.length) {
+      window.addEventListener('load', function () {
+        moveRtIndicator(document.querySelector('.rt-toggle-btn.active'));
+      });
+      // in case load already fired or fonts shift layout
+      setTimeout(function () {
+        moveRtIndicator(document.querySelector('.rt-toggle-btn.active'));
+      }, 300);
+    }
+
     // 커리큘럼 탭 (초급/중급/심화 전환)
     var curTabs = document.querySelectorAll('.curriculum-tabs .tab');
     var curPanels = document.querySelectorAll('.curriculum-timeline');
+
+    function playCurriculumAnimation(panel) {
+      panel.classList.remove('animate');
+      void panel.offsetWidth;
+      panel.classList.add('animate');
+    }
+
     curTabs.forEach(function (tabEl) {
       tabEl.addEventListener('click', function () {
         curTabs.forEach(function (t) { t.classList.remove('active'); });
         tabEl.classList.add('active');
         var tier = tabEl.getAttribute('data-tier');
         curPanels.forEach(function (panel) {
-          panel.classList.toggle('hidden', panel.getAttribute('data-tier-panel') !== tier);
+          var show = panel.getAttribute('data-tier-panel') === tier;
+          panel.classList.toggle('hidden', !show);
+          if (show) { playCurriculumAnimation(panel); }
         });
       });
     });
+
+    var curTable = document.querySelector('.curriculum-table');
+    if (curTable && 'IntersectionObserver' in window) {
+      var curIo = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var activePanel = document.querySelector('.curriculum-timeline:not(.hidden)');
+            if (activePanel) { playCurriculumAnimation(activePanel); }
+            curIo.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      curIo.observe(curTable);
+    }
 
     var trackTabs = document.querySelectorAll('.track-tab');
     trackTabs.forEach(function (tab) {
@@ -2797,6 +3044,27 @@
         wrEls.forEach(function (el) { el.classList.add('in-view'); });
       }
     })();
+
+    // 러닝커브 "17개월 절약" 호버 시 성장 단계 타임랩스 재생
+    var lcCallout = document.getElementById('lcCallout');
+    var lcCard = document.querySelector('.lc-card');
+    if (lcCallout && lcCard) {
+      var lcReplay = function () {
+        lcCard.classList.remove('lc-callout-active');
+        // reflow to allow the pulse animation to restart on repeated hover
+        void lcCard.offsetWidth;
+        lcCard.classList.add('lc-callout-active');
+      };
+      lcCallout.addEventListener('mouseenter', lcReplay);
+      lcCallout.addEventListener('focus', lcReplay);
+      lcCallout.addEventListener('mouseleave', function () {
+        lcCard.classList.remove('lc-callout-active');
+      });
+      lcCallout.addEventListener('blur', function () {
+        lcCard.classList.remove('lc-callout-active');
+      });
+      lcCallout.setAttribute('tabindex', '0');
+    }
   })();
   </script>
 </body>
