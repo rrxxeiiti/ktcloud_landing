@@ -908,118 +908,165 @@
   }
 
   .curriculum-table {
-    margin-top: 50px;
-  }
-  .curriculum-timeline {
-    position: relative;
-    padding-left: 56px;
-  }
-  .curriculum-timeline.hidden { display: none; }
-  .curriculum-timeline::before {
-    content: "";
-    position: absolute;
-    left: 19px;
-    top: 8px;
-    bottom: 8px;
-    width: 1px;
-    background: #262626;
-  }
-  .curriculum-timeline::after {
-    content: "";
-    position: absolute;
-    left: 19px;
-    top: 8px;
-    width: 1px;
-    height: 0;
-    background: linear-gradient(to bottom, #e0392f, #ff6b57);
-    transition: height 1.3s cubic-bezier(.4,0,.2,1);
-  }
-  .curriculum-timeline.animate::after { height: calc(100% - 16px); }
-  .ct-item {
-    position: relative;
-    padding-bottom: 28px;
-  }
-  .ct-item:last-child { padding-bottom: 0; }
-  .ct-marker {
-    position: absolute;
-    left: -56px;
-    top: 0;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: #1c1c1c;
-    border: 1px solid #2e2e2e;
+    margin-top: 40px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
+    gap: 32px;
+    align-items: flex-start;
+  }
+
+  /* 하루 일과 예시 카드 */
+  .cur-schedule {
+    flex: 0 0 300px;
+    background: #131313;
+    border: 1px solid #222222;
+    border-radius: 16px;
+    padding: 32px 28px;
+  }
+  .cur-schedule-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 26px;
+  }
+  .cur-schedule h4 {
+    font-size: 17px;
     font-weight: 800;
-    color: #999999;
-    transition: background .4s ease, border-color .4s ease, color .4s ease, transform .4s cubic-bezier(.34,1.56,.64,1);
-  }
-  .curriculum-timeline.animate .ct-item:nth-child(1) .ct-marker { transition-delay: .15s; }
-  .curriculum-timeline.animate .ct-item:nth-child(2) .ct-marker { transition-delay: .55s; }
-  .curriculum-timeline.animate .ct-item:nth-child(3) .ct-marker { transition-delay: .95s; }
-  .curriculum-timeline.animate .ct-marker {
-    background: linear-gradient(135deg, #e0392f, #b52d21);
-    border-color: transparent;
     color: #ffffff;
-    transform: scale(1.1);
   }
-  .ct-content {
-    background: #141414;
-    border: 1px solid #232323;
-    border-radius: 14px;
-    padding: 36px 40px;
-    opacity: .4;
+  .cur-schedule .cur-schedule-sub {
+    font-size: 11px;
+    font-weight: 700;
+    color: #e0553f;
+    white-space: nowrap;
+  }
+  .cur-schedule-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .cur-schedule-row {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 13px 2px;
+    border-bottom: 1px solid #1e1e1e;
+    border-left: 2px solid transparent;
+    padding-left: 10px;
+    margin-left: -12px;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: border-color .3s ease, padding-left .3s ease, opacity .5s ease, transform .5s ease;
+  }
+  .cur-schedule-row:last-child { border-bottom: none; }
+  .cur-schedule.reveal-rows .cur-schedule-row {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .cur-schedule.reveal-rows .cur-schedule-row:nth-child(1) { transition-delay: 0s; }
+  .cur-schedule.reveal-rows .cur-schedule-row:nth-child(2) { transition-delay: .06s; }
+  .cur-schedule.reveal-rows .cur-schedule-row:nth-child(3) { transition-delay: .12s; }
+  .cur-schedule.reveal-rows .cur-schedule-row:nth-child(4) { transition-delay: .18s; }
+  .cur-schedule.reveal-rows .cur-schedule-row:nth-child(5) { transition-delay: .24s; }
+  .cur-schedule.reveal-rows .cur-schedule-row:nth-child(6) { transition-delay: .3s; }
+  .cur-schedule-row:hover {
+    border-left-color: #e0392f;
+    padding-left: 14px;
+  }
+  .cur-schedule-row.is-break { opacity: .55; }
+  .cur-schedule.reveal-rows .cur-schedule-row.is-break { opacity: .55; }
+  .cur-schedule-row .cur-time {
+    flex: 0 0 68px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #777777;
+  }
+  .cur-schedule-row .cur-activity {
+    font-size: 13px;
+    font-weight: 600;
+    color: #dddddd;
+  }
+
+  /* 커리큘럼 상세 (역량목표/주요교육과정/실무프로젝트 행) */
+  .cur-detail { flex: 1; min-width: 0; }
+  .cur-rows {}
+  .cur-row {
+    display: flex;
+    gap: 28px;
+    padding: 34px 0;
+    border-bottom: 1px solid #1a1a1a;
+  }
+  .cur-row:first-child { padding-top: 8px; }
+  .cur-row:last-child { border-bottom: none; }
+  .cur-row-label {
+    flex: 0 0 84px;
+    padding-left: 18px;
+    border-left: 2px solid #262626;
+    transition: border-color .4s ease;
+  }
+  .cur-row-label .cur-idx {
+    display: block;
+    font-size: 26px;
+    font-weight: 800;
+    color: #2a2a2a;
+    line-height: 1;
+    transition: color .4s ease;
+  }
+  .cur-row-label .cur-idx-text {
+    display: block;
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #888888;
+    line-height: 1.4;
+  }
+  .curriculum-timeline.animate .cur-row:nth-child(1) .cur-row-label { transition-delay: .1s; border-left-color: #e0392f; }
+  .curriculum-timeline.animate .cur-row:nth-child(2) .cur-row-label { transition-delay: .3s; border-left-color: #e0392f; }
+  .curriculum-timeline.animate .cur-row:nth-child(3) .cur-row-label { transition-delay: .5s; border-left-color: #e0392f; }
+  .curriculum-timeline.animate .cur-row:nth-child(1) .cur-idx { transition-delay: .1s; color: #e0392f; }
+  .curriculum-timeline.animate .cur-row:nth-child(2) .cur-idx { transition-delay: .3s; color: #e0392f; }
+  .curriculum-timeline.animate .cur-row:nth-child(3) .cur-idx { transition-delay: .5s; color: #e0392f; }
+  .cur-row-content {
+    flex: 1;
+    min-width: 0;
+    opacity: .3;
     transform: translateX(-6px);
-    transition: opacity .5s ease, transform .5s ease, border-color .4s ease;
+    transition: opacity .5s ease, transform .5s ease;
   }
-  .curriculum-timeline.animate .ct-item:nth-child(1) .ct-content { transition-delay: .15s; }
-  .curriculum-timeline.animate .ct-item:nth-child(2) .ct-content { transition-delay: .55s; }
-  .curriculum-timeline.animate .ct-item:nth-child(3) .ct-content { transition-delay: .95s; }
-  .curriculum-timeline.animate .ct-content {
+  .curriculum-timeline.animate .cur-row:nth-child(1) .cur-row-content { transition-delay: .1s; }
+  .curriculum-timeline.animate .cur-row:nth-child(2) .cur-row-content { transition-delay: .3s; }
+  .curriculum-timeline.animate .cur-row:nth-child(3) .cur-row-content { transition-delay: .5s; }
+  .curriculum-timeline.animate .cur-row-content {
     opacity: 1;
     transform: translateX(0);
-    border-color: rgba(224,57,47,.25);
   }
-  .ct-label {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 800;
-    color: #e0553f;
-    letter-spacing: .02em;
-    margin-bottom: 10px;
-  }
-  .ct-content .block + .block {
-    margin-top: 22px;
-  }
-  .ct-content h5 {
+  .cur-row-content .block + .block { margin-top: 24px; }
+  .cur-row-content h5 {
     font-size: 15px;
     font-weight: 700;
     margin-bottom: 12px;
     color: #ffffff;
   }
-  .ct-content ul {
-    list-style: none;
-  }
-  .ct-content li {
+  .cur-row-content ul { list-style: none; }
+  .cur-row-content li {
     font-size: 13px;
     color: #999999;
     line-height: 1.9;
     padding-left: 14px;
     position: relative;
   }
-  .ct-content li::before {
+  .cur-row-content li::before {
     content: "·";
     position: absolute;
     left: 0;
   }
+  .curriculum-timeline.hidden { display: none; }
 
   @media (max-width: 700px) {
-    .curriculum-timeline { padding-left: 40px; }
-    .ct-marker { left: -40px; width: 32px; height: 32px; }
-    .ct-content { padding: 26px 24px; }
+    .curriculum-table { flex-direction: column; }
+    .cur-schedule { flex-basis: auto; width: 100%; }
+    .cur-row { gap: 18px; }
+    .cur-row-label { flex-basis: 64px; padding-left: 12px; }
+    .cur-row-label .cur-idx { font-size: 20px; }
   }
 
   .curriculum-note {
@@ -1050,9 +1097,9 @@
     position: relative;
     max-width: 920px;
     margin: 56px auto 0;
-    border-radius: 16px;
-    background: #111111;
-    border: 1px solid #232323;
+    border-radius: 20px;
+    background: linear-gradient(165deg, #141414, #0d0d0d);
+    border: 1px solid #242424;
     padding: 40px 44px 36px;
   }
 
@@ -1061,7 +1108,7 @@
   }
   .lc-legend {
     display: flex;
-    gap: 24px;
+    gap: 10px;
   }
   .lc-legend-item {
     display: flex;
@@ -1070,14 +1117,18 @@
     font-size: 12px;
     font-weight: 700;
     color: #999999;
+    background: rgba(255,255,255,.03);
+    border: 1px solid #232323;
+    border-radius: 999px;
+    padding: 7px 14px 7px 10px;
   }
   .lc-legend-item .swatch {
-    width: 16px;
+    width: 14px;
     height: 3px;
     border-radius: 2px;
   }
-  .lc-legend-item.red .swatch { background: #e0392f; }
-  .lc-legend-item.red { color: #eeeeee; }
+  .lc-legend-item.red .swatch { background: #e0392f; box-shadow: 0 0 6px rgba(224,57,47,.7); }
+  .lc-legend-item.red { color: #eeeeee; border-color: rgba(224,57,47,.25); }
   .lc-legend-item.gray .swatch { background: #555555; border-top: 1px dashed #888888; height: 0; }
 
   .lc-callout {
@@ -1098,6 +1149,19 @@
     cursor: pointer;
     opacity: 0;
     transition: opacity .5s ease .4s, transform .3s ease, box-shadow .3s ease;
+  }
+  .lc-callout::before {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 1px solid rgba(224,57,47,.4);
+    animation: calloutPulse 2.6s ease-out infinite;
+  }
+  @keyframes calloutPulse {
+    0% { transform: scale(.94); opacity: 1; }
+    75% { transform: scale(1.18); opacity: 0; }
+    100% { transform: scale(1.18); opacity: 0; }
   }
   .lc-card.in-view .lc-callout { opacity: 1; }
   .lc-callout strong {
@@ -1150,11 +1214,12 @@
     stroke-dasharray: 100;
     stroke-dashoffset: 100;
     vector-effect: non-scaling-stroke;
+    filter: drop-shadow(0 0 4px rgba(224,57,47,.45));
     transition: stroke-dashoffset 1s cubic-bezier(.16,1,.3,1) .3s, filter .4s ease;
   }
   .lc-card.in-view .lc-line-red { stroke-dashoffset: 0; }
   .lc-card.lc-callout-active .lc-line-red {
-    filter: drop-shadow(0 0 6px rgba(224,57,47,.75));
+    filter: drop-shadow(0 0 8px rgba(224,57,47,.85));
   }
 
   .lc-line-red-tail {
@@ -1164,11 +1229,12 @@
     stroke-linecap: round;
     vector-effect: non-scaling-stroke;
     opacity: 0;
-    transition: opacity .5s ease 1.3s;
+    filter: drop-shadow(0 0 4px rgba(224,57,47,.45));
+    transition: opacity .5s ease 1.3s, filter .4s ease;
   }
   .lc-card.in-view .lc-line-red-tail { opacity: 1; }
   .lc-card.lc-callout-active .lc-line-red-tail {
-    filter: drop-shadow(0 0 6px rgba(224,57,47,.75));
+    filter: drop-shadow(0 0 8px rgba(224,57,47,.85));
   }
 
   .lc-guide {
@@ -1212,6 +1278,7 @@
     border-radius: 50%;
     background: #e0392f;
     border: 2px solid #ffffff;
+    box-shadow: 0 0 8px rgba(224,57,47,.7);
     opacity: 0;
     transform: scale(0);
     transition: opacity .3s ease, transform .3s cubic-bezier(.34,1.56,.64,1);
@@ -1249,6 +1316,7 @@
   .lc-badge.red {
     background: #e0392f;
     color: #ffffff;
+    box-shadow: 0 6px 16px rgba(224,57,47,.35);
     transition-delay: 1.05s;
   }
   .lc-badge.gray {
@@ -1278,21 +1346,32 @@
     font-size: 12px;
   }
 
-  /* 4단계 성장 요약 */
+  /* 4단계 성장 요약 (커브 카드와 분리된 별도 카드) */
+  .lc-stages-card {
+    max-width: 920px;
+    margin: 20px auto 0;
+    border-radius: 20px;
+    background: #111111;
+    border: 1px solid #232323;
+    padding: 32px 44px;
+  }
+  .lc-stages-head {
+    font-size: 13px;
+    font-weight: 800;
+    color: #999999;
+    margin-bottom: 24px;
+  }
   .lc-stages {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 14px;
-    margin-top: 36px;
-    padding-top: 32px;
-    border-top: 1px solid #1f1f1f;
   }
   .lc-stage {
     padding: 4px 4px 0 20px;
     border-left: 2px solid #2a2a2a;
     transition: border-color .4s ease;
   }
-  .lc-card.lc-callout-active .lc-stage { border-left-color: rgba(224,57,47,.5); }
+  .lc-card.lc-callout-active ~ .lc-stages-card .lc-stage { border-left-color: rgba(224,57,47,.5); }
   .lc-stage-num {
     display: block;
     font-size: 11px;
@@ -1335,6 +1414,7 @@
       text-align: center;
     }
     .lc-badge.gray { left: 68% !important; top: -14% !important; }
+    .lc-stages-card { padding: 24px 20px; }
     .lc-stages { grid-template-columns: 1fr 1fr; gap: 24px 16px; }
   }
 
@@ -2278,145 +2358,161 @@
       </a>
     </div>
 
-    <div class="curriculum-tabs">
-      <div class="tab active" data-tier="basic">초급 (1 - 2개월)</div>
-      <div class="tab" data-tier="mid">중급 (3 - 5개월)</div>
-      <div class="tab" data-tier="advanced">심화 (6 - 7개월)</div>
-    </div>
-
     <div class="curriculum-table">
-      <div class="curriculum-timeline" data-tier-panel="basic">
-        <div class="ct-item">
-          <span class="ct-marker">01</span>
-          <div class="ct-content">
-            <span class="ct-label">역량 목표</span>
-            <h5>기초 체력 및 툴 빌드업</h5>
-            <ul>
-              <li>디자인 사고 정립</li>
-              <li>필수 디자인 역량 확보</li>
-            </ul>
-          </div>
+      <!-- 하루 일과 예시 -->
+      <div class="cur-schedule">
+        <div class="cur-schedule-top">
+          <h4>하루 일과 예시</h4>
+          <span class="cur-schedule-sub">FULL-TIME · 09-18</span>
         </div>
-        <div class="ct-item">
-          <span class="ct-marker">02</span>
-          <div class="ct-content">
-            <span class="ct-label">주요 교육과정</span>
-            <div class="block">
-              <h5>디자인 기본기 및 트렌드</h5>
-              <ul>
-                <li>사용자 중심 디자인 사고(Design Thinking) 방식 입문</li>
-                <li>와이어프레임, 목업, 디자인 스프린트, 더블 다이아몬드, 린 UX 기초 개념</li>
-                <li>뉴모피즘, 글래스모피즘, 반응형 디자인 등 최신 비주얼 스타일 분석</li>
-              </ul>
-            </div>
-            <div class="block">
-              <h5>생성형 AI 활용 기초</h5>
-              <ul>
-                <li>생성형 AI 기초 및 디자인 생산성 향상을 위한 프롬프트 작성</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="ct-item">
-          <span class="ct-marker">03</span>
-          <div class="ct-content">
-            <span class="ct-label">실무 프로젝트</span>
-            <h5>프로젝트 입문 단계</h5>
-            <ul>
-              <li>제한된 시간 내 협업과 제품 설계를 겪어보는 해커톤 참여</li>
-              <li>리서치 → UI/UX 설계 → 프로토타이핑 → 피드백 기본 전 과정 경험</li>
-            </ul>
-          </div>
+        <div class="cur-schedule-list">
+          <div class="cur-schedule-row"><span class="cur-time">09:00-10:00</span><span class="cur-activity">데일리 스탠드업 &amp; 목표 공유</span></div>
+          <div class="cur-schedule-row"><span class="cur-time">10:00-12:00</span><span class="cur-activity">핵심 강의 &amp; 실습</span></div>
+          <div class="cur-schedule-row is-break"><span class="cur-time">12:00-13:00</span><span class="cur-activity">점심 시간</span></div>
+          <div class="cur-schedule-row"><span class="cur-time">13:00-15:00</span><span class="cur-activity">팀 프로젝트 작업</span></div>
+          <div class="cur-schedule-row"><span class="cur-time">15:00-17:00</span><span class="cur-activity">피드백 &amp; 멘토링</span></div>
+          <div class="cur-schedule-row"><span class="cur-time">17:00-18:00</span><span class="cur-activity">데일리 회고 &amp; 내일 계획</span></div>
         </div>
       </div>
 
-      <div class="curriculum-timeline hidden" data-tier-panel="mid">
-        <div class="ct-item">
-          <span class="ct-marker">01</span>
-          <div class="ct-content">
-            <span class="ct-label">역량 목표</span>
-            <h5>실전 감각 익히기</h5>
-            <ul>
-              <li>실무형 프로젝트 대응력 확보</li>
-              <li>PM/개발자와의 협업 프로세스 이해</li>
-            </ul>
-          </div>
+      <!-- 커리큘럼 상세 -->
+      <div class="cur-detail">
+        <div class="curriculum-tabs">
+          <div class="tab active" data-tier="basic">초급 (1 - 2개월)</div>
+          <div class="tab" data-tier="mid">중급 (3 - 5개월)</div>
+          <div class="tab" data-tier="advanced">심화 (6 - 7개월)</div>
         </div>
-        <div class="ct-item">
-          <span class="ct-marker">02</span>
-          <div class="ct-content">
-            <span class="ct-label">주요 교육과정</span>
-            <div class="block">
-              <h5>UI/UX 심화 설계</h5>
-              <ul>
-                <li>인터랙션 디자인과 마이크로 인터랙션 설계</li>
-                <li>디자인 시스템 구축 및 컴포넌트 관리</li>
-                <li>사용성 테스트 설계와 결과 반영 프로세스</li>
-              </ul>
-            </div>
-            <div class="block">
-              <h5>PM · 개발 협업 실무</h5>
-              <ul>
-                <li>애자일/스크럼 방법론 기반 협업 방식</li>
-                <li>개발자와의 핸드오프 및 QA 프로세스</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="ct-item">
-          <span class="ct-marker">03</span>
-          <div class="ct-content">
-            <span class="ct-label">실무 프로젝트</span>
-            <h5>팀 프로젝트 심화 단계</h5>
-            <ul>
-              <li>실제 클라이언트 요구사항을 기반으로 한 기획 → 디자인 전 과정 진행</li>
-              <li>중간 발표 및 현직자 피드백을 반영한 반복 개선</li>
-            </ul>
-          </div>
-        </div>
-      </div>
 
-      <div class="curriculum-timeline hidden" data-tier-panel="advanced">
-        <div class="ct-item">
-          <span class="ct-marker">01</span>
-          <div class="ct-content">
-            <span class="ct-label">역량 목표</span>
-            <h5>포트폴리오 완성 및 실전 대응력</h5>
-            <ul>
-              <li>차별화된 포트폴리오 구성 전략 수립</li>
-              <li>실무 면접 대응력 강화</li>
-            </ul>
+        <div class="curriculum-timeline" data-tier-panel="basic">
+          <div class="cur-rows">
+            <div class="cur-row">
+              <span class="cur-row-label"><span class="cur-idx">01</span><span class="cur-idx-text">역량 목표</span></span>
+              <div class="cur-row-content">
+                <h5>기초 체력 및 툴 빌드업</h5>
+                <ul>
+                  <li>디자인 사고 정립</li>
+                  <li>필수 디자인 역량 확보</li>
+                </ul>
+              </div>
+            </div>
+            <div class="cur-row">
+              <span class="cur-row-label"><span class="cur-idx">02</span><span class="cur-idx-text">주요 교육과정</span></span>
+              <div class="cur-row-content">
+                <div class="block">
+                  <h5>디자인 기본기 및 트렌드</h5>
+                  <ul>
+                    <li>사용자 중심 디자인 사고(Design Thinking) 방식 입문</li>
+                    <li>와이어프레임, 목업, 디자인 스프린트, 더블 다이아몬드, 린 UX 기초 개념</li>
+                    <li>뉴모피즘, 글래스모피즘, 반응형 디자인 등 최신 비주얼 스타일 분석</li>
+                  </ul>
+                </div>
+                <div class="block">
+                  <h5>생성형 AI 활용 기초</h5>
+                  <ul>
+                    <li>생성형 AI 기초 및 디자인 생산성 향상을 위한 프롬프트 작성</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="cur-row">
+              <span class="cur-row-label"><span class="cur-idx">03</span><span class="cur-idx-text">실무 프로젝트</span></span>
+              <div class="cur-row-content">
+                <h5>프로젝트 입문 단계</h5>
+                <ul>
+                  <li>제한된 시간 내 협업과 제품 설계를 겪어보는 해커톤 참여</li>
+                  <li>리서치 → UI/UX 설계 → 프로토타이핑 → 피드백 기본 전 과정 경험</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="ct-item">
-          <span class="ct-marker">02</span>
-          <div class="ct-content">
-            <span class="ct-label">주요 교육과정</span>
-            <div class="block">
-              <h5>포트폴리오 컨설팅</h5>
-              <ul>
-                <li>1:1 첨삭 및 스토리텔링 구성 코칭</li>
-                <li>기업별 맞춤 이력서 · 포트폴리오 전략</li>
-              </ul>
+
+        <div class="curriculum-timeline hidden" data-tier-panel="mid">
+          <div class="cur-rows">
+            <div class="cur-row">
+              <span class="cur-row-label"><span class="cur-idx">01</span><span class="cur-idx-text">역량 목표</span></span>
+              <div class="cur-row-content">
+                <h5>실전 감각 익히기</h5>
+                <ul>
+                  <li>실무형 프로젝트 대응력 확보</li>
+                  <li>PM/개발자와의 협업 프로세스 이해</li>
+                </ul>
+              </div>
             </div>
-            <div class="block">
-              <h5>생성형 AI 심화 활용</h5>
-              <ul>
-                <li>AI 기반 프로토타이핑 및 리서치 자동화</li>
-                <li>생산성 극대화를 위한 AI 워크플로우 구축</li>
-              </ul>
+            <div class="cur-row">
+              <span class="cur-row-label"><span class="cur-idx">02</span><span class="cur-idx-text">주요 교육과정</span></span>
+              <div class="cur-row-content">
+                <div class="block">
+                  <h5>UI/UX 심화 설계</h5>
+                  <ul>
+                    <li>인터랙션 디자인과 마이크로 인터랙션 설계</li>
+                    <li>디자인 시스템 구축 및 컴포넌트 관리</li>
+                    <li>사용성 테스트 설계와 결과 반영 프로세스</li>
+                  </ul>
+                </div>
+                <div class="block">
+                  <h5>PM · 개발 협업 실무</h5>
+                  <ul>
+                    <li>애자일/스크럼 방법론 기반 협업 방식</li>
+                    <li>개발자와의 핸드오프 및 QA 프로세스</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="cur-row">
+              <span class="cur-row-label"><span class="cur-idx">03</span><span class="cur-idx-text">실무 프로젝트</span></span>
+              <div class="cur-row-content">
+                <h5>팀 프로젝트 심화 단계</h5>
+                <ul>
+                  <li>실제 클라이언트 요구사항을 기반으로 한 기획 → 디자인 전 과정 진행</li>
+                  <li>중간 발표 및 현직자 피드백을 반영한 반복 개선</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
-        <div class="ct-item">
-          <span class="ct-marker">03</span>
-          <div class="ct-content">
-            <span class="ct-label">실무 프로젝트</span>
-            <h5>최종 프로젝트 및 발표</h5>
-            <ul>
-              <li>TECH UP 연합 해커톤 참여</li>
-              <li>최종 결과물 데모데이 발표 및 현직자 피드백</li>
-            </ul>
+
+        <div class="curriculum-timeline hidden" data-tier-panel="advanced">
+          <div class="cur-rows">
+            <div class="cur-row">
+              <span class="cur-row-label"><span class="cur-idx">01</span><span class="cur-idx-text">역량 목표</span></span>
+              <div class="cur-row-content">
+                <h5>포트폴리오 완성 및 실전 대응력</h5>
+                <ul>
+                  <li>차별화된 포트폴리오 구성 전략 수립</li>
+                  <li>실무 면접 대응력 강화</li>
+                </ul>
+              </div>
+            </div>
+            <div class="cur-row">
+              <span class="cur-row-label"><span class="cur-idx">02</span><span class="cur-idx-text">주요 교육과정</span></span>
+              <div class="cur-row-content">
+                <div class="block">
+                  <h5>포트폴리오 컨설팅</h5>
+                  <ul>
+                    <li>1:1 첨삭 및 스토리텔링 구성 코칭</li>
+                    <li>기업별 맞춤 이력서 · 포트폴리오 전략</li>
+                  </ul>
+                </div>
+                <div class="block">
+                  <h5>생성형 AI 심화 활용</h5>
+                  <ul>
+                    <li>AI 기반 프로토타이핑 및 리서치 자동화</li>
+                    <li>생산성 극대화를 위한 AI 워크플로우 구축</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="cur-row">
+              <span class="cur-row-label"><span class="cur-idx">03</span><span class="cur-idx-text">실무 프로젝트</span></span>
+              <div class="cur-row-content">
+                <h5>최종 프로젝트 및 발표</h5>
+                <ul>
+                  <li>TECH UP 연합 해커톤 참여</li>
+                  <li>최종 결과물 데모데이 발표 및 현직자 피드백</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -2438,16 +2534,16 @@
       </div>
 
       <div class="lc-plot">
-        <svg class="lc-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <path class="lc-line-gray" pathLength="100" d="M2,98 C35,96 68,74 100,8" vector-effect="non-scaling-stroke"/>
-          <path class="lc-line-red" pathLength="100" d="M2,96 C12,90 20,40 29,8" vector-effect="non-scaling-stroke"/>
-          <path class="lc-line-red-tail" d="M29,8 L100,8" vector-effect="non-scaling-stroke"/>
+        <svg class="lc-svg" viewBox="0 0 320 100" preserveAspectRatio="none">
+          <path class="lc-line-gray" pathLength="100" d="M6.4,98 C112,96 217.6,74 320,8" vector-effect="non-scaling-stroke"/>
+          <path class="lc-line-red" pathLength="100" d="M6.4,96 C44.8,86 64,8 92.8,8" vector-effect="non-scaling-stroke"/>
+          <path class="lc-line-red-tail" d="M92.8,8 L320,8" vector-effect="non-scaling-stroke"/>
         </svg>
 
         <div class="lc-guide" style="left:29%;"></div>
 
         <span class="lc-stage-dot" data-stage="1" style="left:2%; top:96%;"></span>
-        <span class="lc-stage-dot" data-stage="2" style="left:12%; top:65%;"></span>
+        <span class="lc-stage-dot" data-stage="2" style="left:12%; top:70%;"></span>
         <span class="lc-stage-dot" data-stage="3" style="left:21%; top:28%;"></span>
         <span class="lc-stage-dot" data-stage="4" style="left:29%; top:8%;"></span>
 
@@ -2465,7 +2561,10 @@
       <div class="lc-axis">
         <span>시작</span><span>6개월</span><span>1년</span><span>1년 6개월</span><span class="hl">2년 이상</span>
       </div>
+    </div>
 
+    <div class="lc-stages-card reveal">
+      <div class="lc-stages-head">KT CLOUD TECH UP, 7개월 성장 단계</div>
       <div class="lc-stages">
         <div class="lc-stage">
           <span class="lc-stage-num">01</span>
@@ -3030,12 +3129,14 @@
     });
 
     var curTable = document.querySelector('.curriculum-table');
+    var curSchedule = document.querySelector('.cur-schedule');
     if (curTable && 'IntersectionObserver' in window) {
       var curIo = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
             var activePanel = document.querySelector('.curriculum-timeline:not(.hidden)');
             if (activePanel) { playCurriculumAnimation(activePanel); }
+            if (curSchedule) { curSchedule.classList.add('reveal-rows'); }
             curIo.unobserve(entry.target);
           }
         });
