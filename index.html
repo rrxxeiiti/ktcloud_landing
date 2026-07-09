@@ -1685,8 +1685,10 @@
   .keyword-tag {
     position: absolute;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 6px;
     text-align: center;
     font-size: 13px;
     font-weight: 700;
@@ -1704,6 +1706,17 @@
     transition: box-shadow .35s ease, transform .35s ease, filter .4s ease, z-index 0s;
   }
   .keyword-tag:hover { box-shadow: inset 0 0 0 1px rgba(255,255,255,.3); }
+  .keyword-tag .kw-icon {
+    font-size: 26px;
+    line-height: 1;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,.4));
+  }
+  .keyword-tag .kw-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 1px 3px rgba(0,0,0,.6);
+  }
 
   /* 5개 고정 슬롯 위치 (동일 크기, 대각선으로 겹치는 배치) */
   .keyword-tag[data-slot="a"] { left: 4%;  top: 4%;  z-index: 1; }
@@ -1803,6 +1816,17 @@
     overflow: hidden;
     background: linear-gradient(135deg, #2a2a2a, #161616);
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .space-photo::before {
+    content: "";
+    width: 30px;
+    height: 30px;
+    opacity: .28;
+    background: no-repeat center / contain;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='1.5'%3E%3Crect x='3' y='4' width='18' height='16' rx='2'/%3E%3Ccircle cx='9' cy='10' r='2'/%3E%3Cpath d='M3 17l5-5 4 4 3-3 6 6'/%3E%3C/svg%3E");
   }
   .space-photo::after {
     content: "";
@@ -2964,11 +2988,11 @@
     var benefitItems = document.querySelectorAll('.benefit-item');
 
     var keywordData = {
-      infleran: { label: '인프런 강의', file: '인프라.png' },
-      grant: { label: '훈련 지원금', file: '훈련지원금.png' },
-      laptop: { label: '노트북 대여', file: '노트북대여.png' },
-      network: { label: '네트워킹 파티', file: '네트워킹파티.png' },
-      ai: { label: '생성형 AI 지원', file: '생성형AI.png' }
+      infleran: { label: '인프런 강의', file: '인프라.png', icon: '🎓' },
+      grant: { label: '훈련 지원금', file: '훈련지원금.png', icon: '💰' },
+      laptop: { label: '노트북 대여', file: '노트북대여.png', icon: '💻' },
+      network: { label: '네트워킹 파티', file: '네트워킹파티.png', icon: '🎉' },
+      ai: { label: '생성형 AI 지원', file: '생성형AI.png', icon: '✨' }
     };
 
     function shuffle(arr) {
@@ -2991,7 +3015,7 @@
         var key = keys[i];
         var data = keywordData[key];
         tag.setAttribute('data-target', key);
-        tag.textContent = data.label;
+        tag.innerHTML = '<span class="kw-icon">' + data.icon + '</span><span class="kw-label">' + data.label + '</span>';
         tag.style.backgroundImage = "url('" + data.file + "')";
         tag.addEventListener('click', function () {
           setActiveBenefit(tag.getAttribute('data-target'));
