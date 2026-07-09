@@ -317,10 +317,11 @@
     color: #cccccc;
     margin-bottom: 8px;
   }
-  .info-item .label .dot {
-    width: 8px;
-    height: 8px;
-    background: #c73a2e;
+  .info-item .label .icon {
+    width: 14px;
+    height: 14px;
+    object-fit: contain;
+    flex-shrink: 0;
   }
   .info-item .value {
     font-size: 11px;
@@ -1493,7 +1494,7 @@
   }
   .bubble-item.dark { background: #1c1c1c; color: #dddddd; border: 1px solid #2a2a2a; }
   .bubble-item.red { background: #c73a2e; color: #ffffff; }
-  .bubble-avatar { width: 26px; height: 26px; border-radius: 50%; background: #3a3a3a; flex-shrink: 0; }
+  .bubble-avatar { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; background: #3a3a3a; flex-shrink: 0; }
   .bubble-item.red .bubble-avatar { background: rgba(255,255,255,.35); }
   @keyframes bubbleScroll {
     from { transform: translateX(0); }
@@ -1528,7 +1529,7 @@
     padding-top: 18px;
     border-top: 1px solid #262626;
   }
-  .review-avatar { width: 32px; height: 32px; border-radius: 50%; background: #3a3a3a; flex-shrink: 0; }
+  .review-avatar { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; background: #3a3a3a; flex-shrink: 0; }
   .review-author strong { display: block; font-size: 12px; font-weight: 700; color: #eeeeee; }
   .review-author span { font-size: 11px; color: #888888; }
 
@@ -1547,6 +1548,8 @@
     aspect-ratio: 3 / 4.1;
     border-radius: 12px;
     background: #161616;
+    background-size: cover;
+    background-position: center;
     border: 1px solid #232323;
     padding: 40px 32px;
     display: flex;
@@ -1556,6 +1559,13 @@
     cursor: pointer;
     transition: transform .4s ease, border-color .5s ease;
   }
+  .career-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,.8) 100%);
+    z-index: 0;
+  }
   .career-card::before {
     content: "";
     position: absolute;
@@ -1563,10 +1573,11 @@
     background: linear-gradient(180deg, #e0453a 0%, #cf3c2e 40%, #9a4640 62%, #55504c 82%, #3f3f3f 100%);
     opacity: 0;
     transition: opacity .5s ease;
+    z-index: 1;
   }
   .career-card:hover { transform: translateY(-4px); border-color: transparent; }
   .career-card:hover::before { opacity: 1; }
-  .career-card h4, .career-card span { position: relative; z-index: 1; }
+  .career-card h4, .career-card span { position: relative; z-index: 2; }
   .career-card h4 { font-size: 17px; font-weight: 800; margin-bottom: 6px; color: #ffffff; }
   .career-card span { font-size: 12px; color: #999999; transition: color .4s ease; }
   .career-card:hover span { color: rgba(255,255,255,.85); }
@@ -1814,7 +1825,10 @@
     aspect-ratio: 4/3;
     border-radius: 10px;
     overflow: hidden;
-    background: linear-gradient(135deg, #2a2a2a, #161616);
+    background-color: #1a1a1a;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     position: relative;
     display: flex;
     align-items: center;
@@ -2166,23 +2180,23 @@
 
     <div class="info-bar">
       <div class="info-item">
-        <div class="label"><span class="dot"></span>교육 기간</div>
+        <div class="label"><img class="icon" src="기간.svg" alt="">교육 기간</div>
         <div class="value">26.6.10 (수) - 26.12.23 (수)</div>
       </div>
       <div class="info-item">
-        <div class="label"><span class="dot"></span>교육 일정</div>
+        <div class="label"><img class="icon" src="일정.svg" alt="">교육 일정</div>
         <div class="value">주5일 | 09:00 - 18:00</div>
       </div>
       <div class="info-item">
-        <div class="label"><span class="dot"></span>교육 방식</div>
+        <div class="label"><img class="icon" src="방식.svg" alt="">교육 방식</div>
         <div class="value">비대면 | 온라인 실시간 (ZEP)</div>
       </div>
       <div class="info-item">
-        <div class="label"><span class="dot"></span>대상</div>
+        <div class="label"><img class="icon" src="대상.svg" alt="">대상</div>
         <div class="value">예비 프로덕트 디자이너</div>
       </div>
       <div class="info-item">
-        <div class="label"><span class="dot"></span>훈련 장려금</div>
+        <div class="label"><img class="icon" src="장려금.svg" alt="">훈련 장려금</div>
         <div class="value">월 최대 30만원</div>
       </div>
     </div>
@@ -2623,19 +2637,19 @@
 
     <div class="bubble-marquee">
       <div class="bubble-track">
-        <div class="bubble-item dark"><span class="bubble-avatar"></span>비전공자였는데 7개월 만에 포트폴리오 3개를 완성했어요</div>
-        <div class="bubble-item red"><span class="bubble-avatar"></span>현직 멘토님 피드백이 정말 실무적이었습니다</div>
-        <div class="bubble-item dark"><span class="bubble-avatar"></span>혼자였다면 절대 못 끝냈을 프로젝트를 완주했어요</div>
-        <div class="bubble-item red"><span class="bubble-avatar"></span>커리어 지원 덕분에 서류 통과율이 확 올랐습니다</div>
-        <div class="bubble-item dark"><span class="bubble-avatar"></span>매주 스터디 덕분에 끝까지 완주할 수 있었어요</div>
-        <div class="bubble-item red"><span class="bubble-avatar"></span>AI 툴 활용법을 배우고 작업 속도가 2배 빨라졌어요</div>
+        <div class="bubble-item dark"><img class="bubble-avatar" src="profile_01.png" alt="">비전공자였는데 7개월 만에 포트폴리오 3개를 완성했어요</div>
+        <div class="bubble-item red"><img class="bubble-avatar" src="profile_01.png" alt="">현직 멘토님 피드백이 정말 실무적이었습니다</div>
+        <div class="bubble-item dark"><img class="bubble-avatar" src="profile_01.png" alt="">혼자였다면 절대 못 끝냈을 프로젝트를 완주했어요</div>
+        <div class="bubble-item red"><img class="bubble-avatar" src="profile_01.png" alt="">커리어 지원 덕분에 서류 통과율이 확 올랐습니다</div>
+        <div class="bubble-item dark"><img class="bubble-avatar" src="profile_01.png" alt="">매주 스터디 덕분에 끝까지 완주할 수 있었어요</div>
+        <div class="bubble-item red"><img class="bubble-avatar" src="profile_01.png" alt="">AI 툴 활용법을 배우고 작업 속도가 2배 빨라졌어요</div>
         <!-- duplicate for seamless loop -->
-        <div class="bubble-item dark" aria-hidden="true"><span class="bubble-avatar"></span>비전공자였는데 7개월 만에 포트폴리오 3개를 완성했어요</div>
-        <div class="bubble-item red" aria-hidden="true"><span class="bubble-avatar"></span>현직 멘토님 피드백이 정말 실무적이었습니다</div>
-        <div class="bubble-item dark" aria-hidden="true"><span class="bubble-avatar"></span>혼자였다면 절대 못 끝냈을 프로젝트를 완주했어요</div>
-        <div class="bubble-item red" aria-hidden="true"><span class="bubble-avatar"></span>커리어 지원 덕분에 서류 통과율이 확 올랐습니다</div>
-        <div class="bubble-item dark" aria-hidden="true"><span class="bubble-avatar"></span>매주 스터디 덕분에 끝까지 완주할 수 있었어요</div>
-        <div class="bubble-item red" aria-hidden="true"><span class="bubble-avatar"></span>AI 툴 활용법을 배우고 작업 속도가 2배 빨라졌어요</div>
+        <div class="bubble-item dark" aria-hidden="true"><img class="bubble-avatar" src="profile_01.png" alt="">비전공자였는데 7개월 만에 포트폴리오 3개를 완성했어요</div>
+        <div class="bubble-item red" aria-hidden="true"><img class="bubble-avatar" src="profile_01.png" alt="">현직 멘토님 피드백이 정말 실무적이었습니다</div>
+        <div class="bubble-item dark" aria-hidden="true"><img class="bubble-avatar" src="profile_01.png" alt="">혼자였다면 절대 못 끝냈을 프로젝트를 완주했어요</div>
+        <div class="bubble-item red" aria-hidden="true"><img class="bubble-avatar" src="profile_01.png" alt="">커리어 지원 덕분에 서류 통과율이 확 올랐습니다</div>
+        <div class="bubble-item dark" aria-hidden="true"><img class="bubble-avatar" src="profile_01.png" alt="">매주 스터디 덕분에 끝까지 완주할 수 있었어요</div>
+        <div class="bubble-item red" aria-hidden="true"><img class="bubble-avatar" src="profile_01.png" alt="">AI 툴 활용법을 배우고 작업 속도가 2배 빨라졌어요</div>
       </div>
     </div>
 
@@ -2643,21 +2657,21 @@
       <div class="review-card reveal">
         <p>처음엔 디자인 툴도 서툴렀는데, 7개월 동안 실무 프로젝트를 3개나 진행하면서 포트폴리오가 완전히 달라졌어요. 협업 경험까지 챙길 수 있어서 만족스러웠습니다.</p>
         <div class="review-author">
-          <span class="review-avatar"></span>
+          <img class="review-avatar" src="profile_01.png" alt="">
           <div><strong>프로덕트 디자인 1기</strong><span>수강생 김O진</span></div>
         </div>
       </div>
       <div class="review-card reveal" style="transition-delay:.1s;">
         <p>커리큘럼이 정말 체계적이었어요. 기초부터 실무까지 순서대로 밟아가다 보니 어느새 포트폴리오가 완성되어 있더라고요. 멘토링도 큰 도움이 됐습니다.</p>
         <div class="review-author">
-          <span class="review-avatar"></span>
+          <img class="review-avatar" src="profile_01.png" alt="">
           <div><strong>프로덕트 디자인 1기</strong><span>수강생 이O민</span></div>
         </div>
       </div>
       <div class="review-card reveal" style="transition-delay:.2s;">
         <p>취업 준비하면서 가장 막막했던 포트폴리오 구성을, 현직자 멘토링을 통해 명확한 방향으로 잡을 수 있었어요. 결국 원하던 회사에 합격했습니다.</p>
         <div class="review-author">
-          <span class="review-avatar"></span>
+          <img class="review-avatar" src="profile_01.png" alt="">
           <div><strong>프로덕트 디자인 1기</strong><span>수강생 박O현</span></div>
         </div>
       </div>
@@ -2672,15 +2686,15 @@
     </div>
 
     <div class="career-cards">
-      <div class="career-card reveal">
+      <div class="career-card reveal" style="background-image:url('해커톤.png');">
         <h4>TECH UP<br>연합 해커톤</h4>
         <span>다른 트랙 수강생들과 팀을 이뤄 실전 프로젝트를 경험하세요.</span>
       </div>
-      <div class="career-card reveal" style="transition-delay:.1s;">
+      <div class="career-card reveal" style="transition-delay:.1s; background-image:url('현직자특강멘토링.png');">
         <h4>kt cloud<br>현직자 특강, 멘토링</h4>
         <span>현업 실무자에게 직접 배우고 피드백 받는 시간.</span>
       </div>
-      <div class="career-card reveal" style="transition-delay:.2s;">
+      <div class="career-card reveal" style="transition-delay:.2s; background-image:url('이력서.png');">
         <h4>이력서,<br>포트폴리오 컨설팅</h4>
         <span>서류 완성도를 높이는 1:1 첨삭과 컨설팅.</span>
       </div>
@@ -2792,17 +2806,17 @@
         <div class="reveal">
           <div class="space-caption">실시간 화상 강의실</div>
           <div class="space-gallery">
-            <div class="space-photo"></div>
-            <div class="space-photo"></div>
-            <div class="space-photo"></div>
+            <div class="space-photo" style="background-image:url('강의실 이미지 01.png');"></div>
+            <div class="space-photo" style="background-image:url('강의실 이미지 02.png');"></div>
+            <div class="space-photo" style="background-image:url('강의실 이미지 03.png');"></div>
           </div>
         </div>
         <div class="reveal">
           <div class="space-caption">자유 스터디 공간 둘러보기</div>
-          <div class="space-video">
-            <div class="space-play">
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 2.5L15 9L4 15.5V2.5Z" fill="#ffffff"/></svg>
-            </div>
+          <div class="space-gallery">
+            <div class="space-photo" style="background-image:url('스터디 공간 01.png');"></div>
+            <div class="space-photo" style="background-image:url('스터디 공간 02.png');"></div>
+            <div class="space-photo" style="background-image:url('스터디 공간 03.png');"></div>
           </div>
         </div>
       </div>
@@ -3015,7 +3029,7 @@
         var key = keys[i];
         var data = keywordData[key];
         tag.setAttribute('data-target', key);
-        tag.innerHTML = '<span class="kw-icon">' + data.icon + '</span><span class="kw-label">' + data.label + '</span>';
+        tag.innerHTML = '<span class="kw-label">' + data.label + '</span>';
         tag.style.backgroundImage = "url('" + data.file + "')";
         tag.addEventListener('click', function () {
           setActiveBenefit(tag.getAttribute('data-target'));
